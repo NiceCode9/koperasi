@@ -9,9 +9,9 @@
                     Data</a>
             </div>
 
-            <div class="mb-3 d-flex justify-content-end">
+            <div class="mb-3 d-flex justify-content-start">
                 <div class="input-group" style="width: 300px;">
-                    <span class="input-group-text"><i class="bx bx-search"></i></span>
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
                     <input type="text" class="form-control" id="searchInput" placeholder="Cari user...">
                 </div>
             </div>
@@ -25,6 +25,7 @@
                             <th>Email</th>
                             <th>Telephone</th>
                             <th>Level</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -34,19 +35,30 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ Str::upper($user->role) }}</td>
                                 <td>{{ $user->telephone }}</td>
+                                <td>{{ Str::upper($user->role) }}</td>
                                 <td>
-                                    <a href="" class="btn btn-warning btn-sm edit-btn"
+                                    <button class="btn btn-sm status-btn {{ $user->status ? 'btn-success' : 'btn-danger' }}"
+                                        data-id="{{ $user->id }}" data-status="{{ $user->status }}">
+                                        {{ $user->status ? 'Aktif' : 'Tidak Aktif' }}
+                                    </button>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0)" class="btn btn-warning btn-sm edit-btn"
                                         data-id="{{ $user->id }}">Edit</a>
-                                    <a href="" class="btn btn-danger btn-sm destroy-btn"
-                                        data-id="{{ $user->id }}">Hapus</a>
+                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm btn-delete">Hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
+            {{ $users->links() }}
         </div>
     </div>
 
@@ -60,6 +72,8 @@
                 </div>
                 <form action="{{ route('admin.users.store') }}" method="POST" id="form-user">
                     @csrf
+                    <div id="method">
+                    </div>
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama</label>
@@ -78,13 +92,38 @@
                             <small class="text-danger error-text telpehon_error"></small>
                         </div>
                         <div class="mb-3">
+                            <label for="role" class="form-label">Role</label>
+                            <select name="role" id="role" class="form-select">
+                                <option value="nasabah">Nasabah</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                            <small class="text-danger error-text role_error"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status" id="statusActive"
+                                        value="1">
+                                    <label class="form-check-label" for="statusActive">Aktif</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status" id="statusInactive"
+                                        value="0">
+                                    <label class="form-check-label" for="statusInactive">Tidak Aktif</label>
+                                </div>
+                            </div>
+                            <small class="text-danger error-text status_error"></small>
+                        </div>
+                        <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="text" class="form-control" id="password" name="password">
                             <small class="text-danger error-text password_error"></small>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-close">Batal</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary btn-accept">Simpan</button>
                     </div>
                 </form>
@@ -131,14 +170,79 @@
                     modal.find('.modal-title').text('Edit User');
                     form.attr('action', "{{ route('admin.users.update', ':id') }}".replace(':id',
                         id));
-                    form.append('_method', 'PUT');
+                    $('#method').html('@method('PUT')');
 
                     form.find('[name="id"]').val(data.id);
                     form.find('[name="name"]').val(data.name);
                     form.find('[name="email"]').val(data.email);
                     form.find('[name="telephone"]').val(data.telephone);
+                    form.find('[name="role"]').val(data.role);
+                    form.find(`#status${data.status ? 'Active' : 'Inactive'}`).prop('checked',
+                        true);
 
                     modal.modal('show');
+                });
+            });
+
+            // Delete confirmation
+            $('.btn-delete').on('click', function(e) {
+                e.preventDefault();
+                const deleteForm = $(this).closest('form');
+
+                swal({
+                    title: "Are you sure?",
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: "warning",
+                    buttons: {
+                        cancel: {
+                            visible: true,
+                            text: "Batal",
+                            className: "btn btn-danger",
+                        },
+                        confirm: {
+                            text: "Hapus",
+                            className: "btn btn-success",
+                        },
+                    },
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        deleteForm.submit();
+                    } else {
+                        swal("Hapus data dibatalkan!", {
+                            buttons: {
+                                confirm: {
+                                    className: "btn btn-success",
+                                },
+                            },
+                        });
+                    }
+                });
+            });
+
+            // Status toggle handler
+            $('.status-btn').on('click', function() {
+                const btn = $(this);
+                const id = btn.data('id');
+                const url = `{{ route('admin.users.status', ':id') }}`.replace(':id', id);
+
+                $.ajax({
+                    url: url,
+                    type: 'PATCH',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            if (response.status) {
+                                btn.removeClass('btn-danger').addClass('btn-success');
+                                btn.text('Aktif');
+                            } else {
+                                btn.removeClass('btn-success').addClass('btn-danger');
+                                btn.text('Tidak Aktif');
+                            }
+                            btn.data('status', response.status);
+                        }
+                    }
                 });
             });
         });

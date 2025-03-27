@@ -29,13 +29,11 @@
         });
     </script>
 
+
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets') }}/css/bootstrap.min.css" />
     <link rel="stylesheet" href="{{ asset('assets') }}/css/plugins.min.css" />
     <link rel="stylesheet" href="{{ asset('assets') }}/css/kaiadmin.min.css" />
-
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link rel="stylesheet" href="{{ asset('assets') }}/css/demo.css" />
 </head>
 
 <body>
@@ -76,13 +74,6 @@
                             </a>
                         </li>
                         @if (auth()->user()->role == 'admin')
-                            <li class="nav-item {{ request()->is('admin.users.*') ? 'active' : '' }}">
-                                <a href="{{ route('admin.users.index') }}">
-                                    <i class="fas fa-users"></i>
-                                    <p>Guru</p>
-                                </a>
-                            </li>
-
                             <li class="nav-item">
                                 <a data-bs-toggle="collapse" href="#base">
                                     <i class="fas fa-layer-group"></i>
@@ -92,8 +83,13 @@
                                 <div class="collapse" id="base">
                                     <ul class="nav nav-collapse">
                                         <li>
-                                            <a href="{{ route('admin.users') }}">
+                                            <a href="{{ route('admin.users.index') }}">
                                                 <span class="sub-item">Users</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('admin.nasabah.index') }}">
+                                                <span class="sub-item">Nasabah</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -150,7 +146,13 @@
                                 <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"
                                     aria-expanded="false">
                                     <div class="avatar-sm">
-                                        <img src="{{ asset('assets') }}/img/profile.jpg" alt="..."
+                                        @php
+                                            $path =
+                                                auth()->user()->nasabah && auth()->user()->nasabah->foto
+                                                    ? asset('storage/' . auth()->user()->nasabah->foto)
+                                                    : asset('assets/img/default-user.jpg');
+                                        @endphp
+                                        <img src="{{ $path }}" alt="..."
                                             class="avatar-img rounded-circle" />
                                     </div>
                                     <span class="profile-username">
@@ -163,11 +165,11 @@
                                         <li>
                                             <div class="user-box">
                                                 <div class="avatar-lg">
-                                                    <img src="{{ asset('assets') }}/img/profile.jpg"
-                                                        alt="image profile" class="avatar-img rounded" />
+                                                    <img src="{{ $path }}" alt="image profile"
+                                                        class="avatar-img rounded" />
                                                 </div>
                                                 <div class="u-text">
-                                                    <h4>Hizrian</h4>
+                                                    <h4>{{ auth()->user()->name }}</h4>
                                                     <p class="text-muted">{{ auth()->user()->email }}</p>
                                                     {{-- <a href="profile.html"
                                                         class="btn btn-xs btn-secondary btn-sm">View
@@ -178,7 +180,8 @@
                                         <li>
                                             <div class="dropdown-divider"></div>
                                             @if (auth()->user()->role === 'nasabah')
-                                                <a class="dropdown-item" href="{{ route('guru.profile') }}">Profile</a>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('nasabah.profile') }}">Profile</a>
                                             @endif
                                             <form action="{{ route('logout') }}" style="display: none;" method="POST"
                                                 id="logout-form">
@@ -259,7 +262,7 @@
 
     <!-- Bootstrap Notify -->
     <script src="{{ asset('assets') }}/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-
+    @include('sweetalert::alert')
     <!-- Sweet Alert -->
     <script src="{{ asset('assets') }}/js/plugin/sweetalert/sweetalert.min.js"></script>
 

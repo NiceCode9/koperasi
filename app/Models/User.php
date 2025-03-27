@@ -25,6 +25,7 @@ class User extends Authenticatable
         'telephone',
         'password',
         'role',
+        'status',
     ];
 
     /**
@@ -48,5 +49,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function nasabah()
+    {
+        return $this->hasOne(Nasabah::class, 'user_id');
     }
 }

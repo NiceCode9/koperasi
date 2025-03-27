@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\NasabahController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
@@ -42,7 +43,7 @@ Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
 // login dan logout
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::controller(DashboardController::class)->group(function () {
@@ -53,10 +54,14 @@ Route::middleware('auth')->group(function () {
     Route::middleware('checkrole:admin')->prefix('administrator')->name('admin.')->group(function () {
         Route::resources([
             'users' => UserController::class,
+            'nasabah' => NasabahController::class,
         ]);
+        Route::patch('users/{user}/status', [UserController::class, 'updateStatus'])->name('users.status');
     });
 
-
     // Role Nasabah
-    Route::middleware('checkrole:nasabah')->group(function () {});
+    Route::middleware('checkrole:nasabah')->name('nasabah.')->prefix('nasabah')->group(function () {
+        Route::get('/profile', [App\Http\Controllers\NasabahProfileController::class, 'index'])->name('profile');
+        Route::post('/profile', [App\Http\Controllers\NasabahProfileController::class, 'update'])->name('profile.update');
+    });
 });
