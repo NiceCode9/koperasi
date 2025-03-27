@@ -1,11 +1,12 @@
-<x-layoutAdmin>
+@extends('components.app', ['title' => 'Data User'])
 
+@section('content')
     <div class="card shadow mb-5 bg-body rounded">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="card-title fw-bold">Kelola User</h4>
-                <a href="javascript:void(0)" class="btn btn-primary" data-bs-target="#modalForm"
-                    data-bs-toggle="modal">Tambah Data</a>
+                <a href="javascript:void(0)" class="btn btn-primary" data-bs-target="#modalForm" data-bs-toggle="modal">Tambah
+                    Data</a>
             </div>
 
             <div class="mb-3 d-flex justify-content-end">
@@ -90,57 +91,56 @@
             </div>
         </div>
     </div>
+@endsection
 
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            let timeoutId;
+            const modal = $('#modalForm');
+            const form = $('#form-user');
 
-    @push('scripts')
-        <script>
-            $(document).ready(function() {
-                let timeoutId;
-                const modal = $('#modalForm');
-                const form = $('#form-user');
+            $('#searchInput').on('keyup', function() {
+                clearTimeout(timeoutId);
 
-                $('#searchInput').on('keyup', function() {
-                    clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    const searchValue = $(this).val();
+                    window.location.href = `${window.location.pathname}?search=${searchValue}`;
+                }, 500);
+            });
 
-                    timeoutId = setTimeout(() => {
-                        const searchValue = $(this).val();
-                        window.location.href = `${window.location.pathname}?search=${searchValue}`;
-                    }, 500);
-                });
+            // Set search input value from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('search')) {
+                $('#searchInput').val(urlParams.get('search'));
+            }
 
-                // Set search input value from URL
-                const urlParams = new URLSearchParams(window.location.search);
-                if (urlParams.has('search')) {
-                    $('#searchInput').val(urlParams.get('search'));
-                }
+            // Reset Form
+            modal.on('hidden.bs.modal', function() {
+                form.trigger('reset');
+                form.attr('action', "{{ route('admin.users.store') }}");
+                $('#method').html('');
+            });
 
-                // Reset Form
-                modal.on('hidden.bs.modal', function() {
-                    form.trigger('reset');
-                    form.attr('action', "{{ route('admin.users.store') }}");
-                    $('#method').html('');
-                });
+            // Edit button handler
+            $('.edit-btn').on('click', function() {
+                const id = $(this).data('id');
+                const url = `{{ route('admin.users.edit', ':id') }}`.replace(':id', id);
 
-                // Edit button handler
-                $('.edit-btn').on('click', function() {
-                    const id = $(this).data('id');
-                    const url = `{{ route('admin.users.edit', ':id') }}`.replace(':id', id);
+                $.get(url, function(data) {
+                    modal.find('.modal-title').text('Edit User');
+                    form.attr('action', "{{ route('admin.users.update', ':id') }}".replace(':id',
+                        id));
+                    form.append('_method', 'PUT');
 
-                    $.get(url, function(data) {
-                        modal.find('.modal-title').text('Edit User');
-                        form.attr('action', "{{ route('admin.users.update', ':id') }}".replace(':id',
-                            id));
-                        form.append('_method', 'PUT');
+                    form.find('[name="id"]').val(data.id);
+                    form.find('[name="name"]').val(data.name);
+                    form.find('[name="email"]').val(data.email);
+                    form.find('[name="telephone"]').val(data.telephone);
 
-                        form.find('[name="id"]').val(data.id);
-                        form.find('[name="name"]').val(data.name);
-                        form.find('[name="email"]').val(data.email);
-                        form.find('[name="telephone"]').val(data.telephone);
-
-                        modal.modal('show');
-                    });
+                    modal.modal('show');
                 });
             });
-        </script>
-    @endpush
-</x-layoutAdmin>
+        });
+    </script>
+@endpush
