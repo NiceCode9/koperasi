@@ -23,6 +23,7 @@ class Nasabah extends Model
         'pekerjaan',
         'alamat_kantor_usaha',
         'agama',
+        'alamat',
         'rt_rw',
         'dsn',
         'ds',
@@ -35,5 +36,10 @@ class Nasabah extends Model
     public function akun()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function pengajuan()
+    {
+        return $this->hasMany(Pengajuan::class, 'nasabah_id');
     }
 }

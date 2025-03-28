@@ -11,6 +11,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Nasabah\PengajuanController;
 
 // layanan
 Route::get('/pembiayaan-murabahah', function () {
@@ -63,5 +64,15 @@ Route::middleware('auth')->group(function () {
     Route::middleware('checkrole:nasabah')->name('nasabah.')->prefix('nasabah')->group(function () {
         Route::get('/profile', [App\Http\Controllers\NasabahProfileController::class, 'index'])->name('profile');
         Route::post('/profile', [App\Http\Controllers\NasabahProfileController::class, 'update'])->name('profile.update');
+
+        // Pengajuan
+        Route::controller(PengajuanController::class)->prefix('pengajuan')->name('pengajuan.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/form', 'form')->name('form');
+            Route::get('/form/{pengajuan}', 'form')->name('form.edit');
+            Route::post('/store', 'store')->name('store');
+            Route::put('/{pengajuan}', 'update')->name('update');
+            Route::delete('/{pengajuan}', 'destroy')->name('destroy');
+        });
     });
 });

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Kaiadmin - {{ $title ?? 'Dashboard' }}</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('assets') }}/img/kaiadmin/favicon.ico" type="image/x-icon" />
 
     <!-- Fonts and icons -->
@@ -94,6 +95,15 @@
                                         </li>
                                     </ul>
                                 </div>
+                            </li>
+                        @endif
+
+                        @if (auth()->user()->role == 'nasabah')
+                            <li class="nav-item {{ request()->is('nasabah.pengajuan.*') ? 'active' : '' }}">
+                                <a href="{{ route('nasabah.pengajuan.index') }}">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                    <p>Pengajuan</p>
+                                </a>
                             </li>
                         @endif
                     </ul>
