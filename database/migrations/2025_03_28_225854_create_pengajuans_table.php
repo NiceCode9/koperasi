@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pengajuans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('nasabah_id')->constrained('nasabah')->onDelete('cascade');
+            $table->string('nomor_pengajuan')->unique();
             $table->string('jenis_pengajuan')->nullable();
             $table->string('nominal_pengajuan')->nullable();
             $table->string('nominal_disetujui')->nullable();

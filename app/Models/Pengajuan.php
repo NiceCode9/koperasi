@@ -11,6 +11,7 @@ class Pengajuan extends Model
 
     protected $fillable = [
         'nasabah_id',
+        'nomor_pengajuan',
         'jenis_pengajuan',
         'nominal_pengajuan',
         'nominal_disetujui',
@@ -36,5 +37,10 @@ class Pengajuan extends Model
     public function nasabah()
     {
         return $this->belongsTo(Nasabah::class, 'nasabah_id');
+    }
+
+    public function survei()
+    {
+        return $this->hasOne(Assignment::class, 'pengajuan_id');
     }
 }

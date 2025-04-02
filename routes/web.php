@@ -35,7 +35,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // simulasi
 Route::get('/simulasi', [HomeController::class, 'simulasi'])->name('simulasi');
-Route::view('/survei', 'form-pengajuan')->name('simulasi.murabahah');
+Route::view('/survei', 'marketing.form-survei')->name('simulasi.murabahah');
 
 // news
 Route::get('/news', [NewsController::class, 'tampil'])->name('news');
@@ -74,5 +74,13 @@ Route::middleware('auth')->group(function () {
             Route::put('/{pengajuan}', 'update')->name('update');
             Route::delete('/{pengajuan}', 'destroy')->name('destroy');
         });
+    });
+
+    // Role Marketing
+    Route::middleware('checkrole:marketing')->name('marketing.')->name('marketing.')->prefix('marketing')->group(function () {
+        Route::get('/pengajuan', [App\Http\Controllers\MarketingController::class, 'pengajuan'])->name('pengajuan.survei.index');
+        Route::get('/pengajuan/{id/show}', [App\Http\Controllers\MarketingController::class, 'show'])->name('pengajuan.surevei.show');
+        Route::get('/pengajuan/{id}/survei', [App\Http\Controllers\MarketingController::class, 'createSurvei'])->name('pengajuan.survei');
+        Route::post('/pengajuan/store', [App\Http\Controllers\MarketingController::class, 'storeSurvei'])->name('pengajuan.survei.store');
     });
 });

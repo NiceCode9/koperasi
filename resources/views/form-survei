@@ -34,31 +34,24 @@
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     <label class="form-label">ALAMAT</label>
-                                    <textarea class="form-control" name="alamat" rows="3"></textarea>
+                                    <input type="text" name="alamat" class="form-control">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="form-label">TANGGAL SURVEY</label>
                                     <input type="date" class="form-control" name="tanggal_survey">
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label class="form-label">Jumlah Plafon Pengajuan</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="text" class="form-control" name="jumlah_plafon">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Kegunaan Dana Pembiayaan</label>
-                                    <input type="text" class="form-control" name="kegunaan_dana">
-                                </div>
-                            </div>
-
-                            <div class="row">
                                 <div class="col-md-4">
                                     <label class="form-label">Jangka Waktu</label>
                                     <div class="input-group">
@@ -67,12 +60,59 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
+                                    <label class="form-label">Kegunaan Dana Pembiayaan</label>
+                                    <input type="text" class="form-control" name="kegunaan_dana">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
                                     <label class="form-label">Pekerjaan Pemohon</label>
                                     <input type="text" class="form-control" name="pekerjaan_pemohon">
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Pekerjaan Sampingan</label>
                                     <input type="text" class="form-control" name="pekerjaan_sampingan">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Riwayat Pembayaran Sebelumnya</label>
+                                    <input type="text" class="form-control" name="riwayat_pembayaran">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Hubungan dengan BMT</label>
+                                    <select class="form-select" name="hubungan_dengan_bmt">
+                                        <option value="baru">Baru</option>
+                                        <option value="lama">Lama</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Jumlah Hubungan (Jika Lama)</label>
+                                    <input type="number" class="form-control" name="jumlah_hubungan">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Plafon Tertinggi Sebelumnya</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Rp</span>
+                                        <input type="text" class="form-control" name="plafon_tertinggi_sebelumnya">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">No. Rek Anggota/ Tabungan/ SISUKA</label>
+                                    <input type="text" class="form-control" name="nomor_rekening_anggota">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label class="form-label">Analisa penggunaan dana</label>
+                                    <textarea class="form-control" name="detail_penggunaan_dana" rows="3"></textarea>
+                                    <small class="fst-italic">Jelaskan Penggunaan Dana dari BMT Secara Detail</small>
                                 </div>
                             </div>
                         </div>
@@ -84,34 +124,31 @@
                         </div>
                         <div class="card-body">
                             <div class="row mb-3">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="form-label">Jenis Usaha</label>
                                     <input type="text" class="form-control" name="jenis_usaha">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="form-label">Lama Usaha</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" name="lama_usaha">
-                                        <span class="input-group-text">Tahun</span>
-                                    </div>
+                                    <input type="text" class="form-control" name="lama_usaha">
                                 </div>
-                                <div class="col-md-4">
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
                                     <label class="form-label">Jumlah Tenaga Kerja</label>
                                     <div class="input-group">
                                         <input type="number" class="form-control" name="jumlah_tenaga_kerja">
                                         <span class="input-group-text">Orang</span>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label">Sistem Penjualan Tunai</label>
-                                    <input type="text" class="form-control" name="sistem_penjualan_tunai">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Sistem Penjualan Angsuran</label>
-                                    <input type="text" class="form-control" name="sistem_penjualan_angsuran">
+                                    <select name="sistem_penjualan" id="sistem_penjualan" class="form-control">
+                                        <option value="tunai">Tunai</option>
+                                        <option value="angsuran">Angsuran</option>
+                                        <option value="keduanya">Keduanya</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -153,6 +190,61 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 mb-3">
+                                    <label for="aset_lainnya" class="form-label">Aset Lainnya</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Rp</span>
+                                        <input type="number" name="aset_lainnya" id="aset_lainnya"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="mt-4 mb-3">Kewajiban yang Ditanggung</h5>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Hutang Bank</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Rp</span>
+                                        <input type="text" class="form-control" name="hutang_bank">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Hutang Dagang</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Rp</span>
+                                        <input type="text" class="form-control" name="hutang_dagang">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Modal Sendiri</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Rp</span>
+                                        <input type="text" class="form-control" name="modal_sendiri">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="mt-4 mb-3">Kondisi Usaha</h5>
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label class="form-label">Tren Penjualan 3 Bulan Terakhir</label>
+                                    <textarea class="form-control" name="tren_penjualan_3bulan" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <h5 class="mt-4 mb-3">Penerimaan Bulanan</h5>
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Omset Bulanan</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Rp</span>
+                                        <input type="text" class="form-control" name="omset_bulanan">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -183,6 +275,19 @@
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Atas Nama</label>
                                     <input type="text" class="form-control" name="atas_nama_kendaraan">
+                                </div>
+                            </div>
+
+                            <h5 class="mt-4 mb-3">Jaminan Sertifikat</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Jenis Sertifikat</label>
+                                    <input type="text" class="form-control" name="jenis_sertifikat"
+                                        placeholder="SHM/SHGU/SHGB">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Nomor Sertifikat</label>
+                                    <input type="text" class="form-control" name="nomor_sertifikat">
                                 </div>
                             </div>
                         </div>

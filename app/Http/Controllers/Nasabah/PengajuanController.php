@@ -46,6 +46,7 @@ class PengajuanController extends Controller
             Storage::disk('public')->put('dokumen/' . $dokumen, file_get_contents($file));
         }
 
+        $validated['nomor_pengajuan'] = 'PGJ-' . now()->format('Ymd') . Str::random(5);
         $validated['nasabah_id'] = $nasabah->id;
         $validated['dokumen_pendukung'] = $dokumen;
         $validated['status'] = 'pending';

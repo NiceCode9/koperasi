@@ -20,6 +20,9 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    @if (auth()->user()->role !== 'nasabah')
+                                        <th>Nama Nasabah</th>
+                                    @endif
                                     <th>Tanggal Pengajuan</th>
                                     <th>Jumlah Pengajuan</th>
                                     <th>Jumlah Disetujui</th>
@@ -34,6 +37,9 @@
                                 @foreach ($pengajuan as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        @if (auth()->user()->role !== 'nasabah')
+                                            <td>{{ $item->nasabah->nama_lengkap }}</td>
+                                        @endif
                                         <td>{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->locale('id')->isoFormat('D MMMM YYYY') }}
                                         </td>
                                         <td>Rp. {{ number_format($item->nominal_pengajuan, 0, ',', '.') }}</td>
@@ -53,7 +59,7 @@
                                             </span>
                                         </td>
                                         <td>
-                                            @if ($item->status == 'pending')
+                                            @if ($item->status == 'pending' && auth()->user()->role == 'nasabah')
                                                 <a href="{{ route('nasabah.pengajuan.form.edit', $item->id) }}"
                                                     class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                                 <form action="{{ route('nasabah.pengajuan.destroy', $item->id) }}"
@@ -66,6 +72,17 @@
                                                     </button>
                                                 </form>
                                             @endif
+
+                                            @if (auth()->user()->role == 'marketing' && $item->status == 'pending')
+                                                <a href="{{ route('marketing.pengajuan.survei', $item->id) }}"
+                                                    class="btn btn-sm btn-success">
+                                                    <i class="fas fa-clipboard-list"></i> Survei
+                                                </a>
+                                                <a href="" class="btn btn-sm btn-info">
+                                                    <i class="fas fa-info-circle"></i> Detail
+                                                </a>
+                                            @endif
+
                                         </td>
                                     </tr>
                                 @endforeach

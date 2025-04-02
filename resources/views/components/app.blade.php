@@ -106,6 +106,15 @@
                                 </a>
                             </li>
                         @endif
+
+                        @if (auth()->user()->role == 'marketing')
+                            <li class="nav-item {{ request()->is('marketing.pengajuan.*') ? 'active' : '' }}">
+                                <a href="{{ route('marketing.pengajuan.survei.index') }}">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                    <p>Pengajuan</p>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -193,8 +202,8 @@
                                                 <a class="dropdown-item"
                                                     href="{{ route('nasabah.profile') }}">Profile</a>
                                             @endif
-                                            <form action="{{ route('logout') }}" style="display: none;" method="POST"
-                                                id="logout-form">
+                                            <form action="{{ route('logout') }}" style="display: none;"
+                                                method="POST" id="logout-form">
                                                 @csrf
                                             </form>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
