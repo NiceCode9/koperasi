@@ -39,11 +39,11 @@ class MarketingController extends Controller
             'nilai_motor' => 'required',
             'jumlah_mobil' => 'required',
             'nilai_mobil' => 'required',
-            'total_aset' => 'required',
+            // 'total_aset' => 'required',
             'kebutuhan_pokok' => 'required',
             'biaya_pendidikan' => 'required',
             'pengeluaran_lainnya' => 'required',
-            'total_pengeluaran_rutin' => 'required',
+            // 'total_pengeluaran_rutin' => 'required',
             'selisih_dana' => 'required',
             'kemampuan_bayar' => 'required',
             'plafon_disetujui' => 'required',
@@ -72,6 +72,6 @@ class MarketingController extends Controller
             'angsuran' => $request->angsuran_bulanan,
         ]);
 
-        Assignment::create();
+        Assignment::create([]);
     }
 }

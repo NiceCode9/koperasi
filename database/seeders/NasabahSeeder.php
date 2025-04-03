@@ -20,6 +20,7 @@ class NasabahSeeder extends Seeder
                 'name' => fake()->name(),
                 'email' => fake()->unique()->safeEmail(),
                 'password' => bcrypt('password'),
+                'telephone' => fake()->unique()->phoneNumber(),
                 'role' => 'nasabah'
             ]);
 
@@ -28,7 +29,7 @@ class NasabahSeeder extends Seeder
                 'user_id' => $user->id,
                 'nama_lengkap' => $user->name,
                 'nik' => fake()->unique()->numerify('################'),
-                'telephone' => fake()->unique()->phoneNumber(),
+                'telephone' => $user->telephone,
                 'email' => $user->email,
                 'tempat_lahir' => fake()->city(),
                 'tanggal_lahir' => fake()->date(),

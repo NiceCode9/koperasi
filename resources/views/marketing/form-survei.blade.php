@@ -187,6 +187,11 @@
                                             step="0.01">
                                     </div>
                                 </div>
+                                <div class="col-md-6 mb-3 d-flex">
+                                    <input type="hidden" name="total_aset" id="total_aset">
+                                    <h4 class="fw-bold text-decoration-underline"> Total : <span
+                                            class="total_aset"></span></h4>
+                                </div>
                             </div>
 
                             <h5 class="mt-4 mb-3">Kewajiban yang Ditanggung</h5>
@@ -214,6 +219,14 @@
                                         <input type="number" class="form-control" name="modal_sendiri"
                                             step="0.01">
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 d-flex">
+                                    <input type="hidden" name="total_kewajiban_modal" id="total_kewajiban_modal">
+                                    <h4 class="fw-bold text-decoration-underline"> Total : <span
+                                            class="total_tanggungan"></span></h4>
                                 </div>
                             </div>
 
@@ -263,12 +276,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Total Pendapatan</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="total_pendapatan"
-                                            step="0.01" required>
-                                    </div>
+                                    <input type="hidden" name="total_pendapatan" id="total_pendapatan">
+                                    <h4 class="fw-bold text-decoration-underline"> Total : <span
+                                            class="total_pendapatan"></span></h4>
                                 </div>
                             </div>
 
@@ -576,6 +586,53 @@
 
     <!-- Bootstrap 5 JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        function calculateTotal(inputs, targetInput, targetSpan) {
+            let total = 0;
+            inputs.forEach(input => {
+                total += parseFloat($(`input[name=${input}]`).val()) || 0;
+            });
+
+            $(`input[name=${targetInput}]`).val(total);
+            $(`.${targetSpan}`).html(total.toLocaleString('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            }));
+        }
+
+        $(document).ready(function() {
+            // Konfigurasi perhitungan total untuk setiap kelompok input
+            const calculations = {
+                aset: {
+                    inputs: ['persediaan_barang', 'aset_properti', 'nilai_motor', 'nilai_mobil',
+                        'aset_lainnya'
+                    ],
+                    targetInput: 'total_aset',
+                    targetSpan: 'total_aset'
+                },
+                tanggungan: {
+                    inputs: ['hutang_bank', 'hutang_dagang', 'modal_sendiri'],
+                    targetInput: 'total_tanggungan',
+                    targetSpan: 'total_tanggungan'
+                },
+                pendapatan: {
+                    inputs: ['omset_bulanan', 'gaji_pemohon', 'gaji_pasangan', 'pendapatan_lain'],
+                    targetInput: 'total_pendapatan',
+                    targetSpan: 'total_pendapatan'
+                }
+            };
+
+            // Setup event listeners untuk semua input
+            Object.values(calculations).forEach(calc => {
+                calc.inputs.forEach(input => {
+                    $(`input[name=${input}]`).on('input', () => {
+                        calculateTotal(calc.inputs, calc.targetInput, calc.targetSpan);
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
