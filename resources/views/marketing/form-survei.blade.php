@@ -12,6 +12,12 @@
 <body>
     <div class="container-fluid py-4">
         <div class="row">
+            @error('error')
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ $message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @enderror
             <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                 <h1 class="text-center mb-4 text-primary">ANALISA PERMOHONAN PEMBIAYAAN</h1>
 
@@ -238,9 +244,9 @@
                                 </div>
                             </div>
 
-                            <h5 class="mt-4 mb-3">Penerimaan Bulanan</h5>
+                            <h5 class="mt-4 mb-3">Pendapatan dari usaha/bulan</h5>
                             <div class="row mb-3">
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label class="form-label">Omset Bulanan</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
@@ -248,7 +254,38 @@
                                             step="0.01">
                                     </div>
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-label">Biaya Bahan Baku</div>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Rp</span>
+                                        <input type="number" class="form-control" name="biaya_bahan"
+                                            step="0.01">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-label">Biaya Tenaga Kerja</div>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Rp</span>
+                                        <input type="number" class="form-control" name="biaya_tenaga_kerja"
+                                            step="0.01">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-label">Biaya Lainnya</div>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Rp</span>
+                                        <input type="number" class="form-control" name="biaya_lainnya"
+                                            step="0.01">
+                                    </div>
+                                    <input type="hidden" name="total_biaya" id="total_biaya">
+                                    <input type="hidden" name="pendapatan_usaha_bulanan"
+                                        id="pendapatan_usaha_bulanan">
+                                </div>
+                            </div>
+
+                            <h5 class="mt-4 mb-3">Penerimaan Bulanan</h5>
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label class="form-label">Gaji Pemohon</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
@@ -256,7 +293,7 @@
                                             step="0.01">
                                     </div>
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <label class="form-label">Gaji Pasangan</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
@@ -264,9 +301,6 @@
                                             step="0.01">
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row mb-3">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Pendapatan Lain</label>
                                     <div class="input-group">
@@ -275,9 +309,12 @@
                                             step="0.01">
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row mb-3">
                                 <div class="col-md-6 mb-3">
                                     <input type="hidden" name="total_pendapatan" id="total_pendapatan">
-                                    <h4 class="fw-bold text-decoration-underline"> Total : <span
+                                    <h4 class="fw-bold text-decoration-underline"> Jumlah Pendapatan : <span
                                             class="total_pendapatan"></span></h4>
                                 </div>
                             </div>
@@ -308,17 +345,15 @@
                                             step="0.01" required>
                                     </div>
                                 </div>
+                                <div class="col-md-4 mb-3">
+                                    <input type="hidden" class="form-control" name="total_pengeluaran_rutin"
+                                        step="0.01" required>
+                                    <h4 class="fw-bold text-decoration-underline"> Total Pengeluaran Rutin : <span
+                                            class="total_pengeluaran_rutin"></span></h4>
+                                </div>
                             </div>
 
                             <div class="row mb-3">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Total Pengeluaran Rutin</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="total_pengeluaran_rutin"
-                                            step="0.01" required>
-                                    </div>
-                                </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Kemampuan Bayar</label>
                                     <div class="input-group">
@@ -340,41 +375,81 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Jenis Kendaraan</label>
-                                    <input type="text" class="form-control" name="jenis_kendaraan">
+                                    <input type="text"
+                                        class="form-control @error('jenis_kendaraan') is-invalid @enderror"
+                                        name="jenis_kendaraan" value="{{ old('jenis_kendaraan') }}">
+                                    @error('jenis_kendaraan')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Merk/Tipe</label>
-                                    <input type="text" class="form-control" name="merk_tipe">
+                                    <input type="text"
+                                        class="form-control @error('merk_tipe') is-invalid @enderror" name="merk_tipe"
+                                        value="{{ old('merk_tipe') }}">
+                                    @error('merk_tipe')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Nomor Polisi</label>
-                                    <input type="text" class="form-control" name="nomor_polisi">
+                                    <input type="text"
+                                        class="form-control @error('nomor_polisi') is-invalid @enderror"
+                                        name="nomor_polisi" value="{{ old('nomor_polisi') }}">
+                                    @error('nomor_polisi')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Tahun Pembuatan</label>
-                                    <input type="text" class="form-control" name="tahun_pembuatan">
+                                    <input type="text"
+                                        class="form-control @error('tahun_pembuatan') is-invalid @enderror"
+                                        name="tahun_pembuatan" value="{{ old('tahun_pembuatan') }}">
+                                    @error('tahun_pembuatan')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Atas Nama</label>
-                                    <input type="text" class="form-control" name="nama_pemilik">
+                                    <input type="text"
+                                        class="form-control @error('nama_pemilik') is-invalid @enderror"
+                                        name="nama_pemilik" value="{{ old('nama_pemilik') }}">
+                                    @error('nama_pemilik')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Nomor Rangka</label>
-                                    <input type="text" class="form-control" name="nomor_rangka">
+                                    <input type="text"
+                                        class="form-control @error('nomor_rangka') is-invalid @enderror"
+                                        name="nomor_rangka" value="{{ old('nomor_rangka') }}">
+                                    @error('nomor_rangka')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Nomor Mesin</label>
-                                    <input type="text" class="form-control" name="nomor_mesin">
+                                    <input type="text"
+                                        class="form-control @error('nomor_mesin') is-invalid @enderror"
+                                        name="nomor_mesin" value="{{ old('nomor_mesin') }}">
+                                    @error('nomor_mesin')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Nomor BPKB</label>
-                                    <input type="text" class="form-control" name="nomor_bpkb">
+                                    <input type="text"
+                                        class="form-control @error('nomor_bpkb') is-invalid @enderror"
+                                        name="nomor_bpkb" value="{{ old('nomor_bpkb') }}">
+                                    @error('nomor_bpkb')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Hubungan dengan Anggota</label>
@@ -462,10 +537,13 @@
                                     <textarea class="form-control" name="kondisi_jaminan_tanah" rows="2"></textarea>
                                 </div>
                             </div>
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-primary btn-lg">Submit Pengajuan</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="card mb-4">
+                    {{-- <div class="card mb-4">
                         <div class="card-header bg-primary text-white">
                             Persetujuan Pembiayaan
                         </div>
@@ -540,9 +618,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="card">
+                    {{-- <div class="card">
                         <div class="card-body">
                             <div class="row text-center">
                                 <div class="col-md-4 mb-3">
@@ -578,7 +656,7 @@
                                 <button type="submit" class="btn btn-primary btn-lg">Submit Pengajuan</button>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </form>
             </div>
         </div>
@@ -601,6 +679,31 @@
             }));
         }
 
+        function jumlah_pendapatan() {
+            let total_pendapatan = 0;
+            let total_biaya = 0;
+            let pendapatan_usaha_bulanan = 0;
+            total_biaya += parseFloat($(`input[name=biaya_bahan]`).val()) || 0;
+            total_biaya += parseFloat($(`input[name=biaya_tenaga_kerja]`).val()) || 0;
+            total_biaya += parseFloat($(`input[name=biaya_lainnya]`).val()) || 0;
+
+            pendapatan_usaha_bulanan += parseFloat($(`input[name=omset_bulanan]`).val()) || 0;
+            pendapatan_usaha_bulanan -= total_biaya;
+            $(`input[name=pendapatan_usaha_bulanan]`).val(pendapatan_usaha_bulanan);
+            $('input[name=total_biaya]').val(total_biaya);
+
+            total_pendapatan += parseFloat($(`input[name=gaji_pemohon]`).val()) || 0;
+            total_pendapatan += parseFloat($(`input[name=gaji_pasangan]`).val()) || 0;
+            total_pendapatan += parseFloat($(`input[name=pendapatan_lain]`).val()) || 0;
+            total_pendapatan += parseFloat($(`input[name=pendapatan_usaha_bulanan]`).val()) || 0;
+
+            $(`input[name=total_pendapatan]`).val(total_pendapatan);
+            $(`.total_pendapatan`).html(total_pendapatan.toLocaleString('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            }));
+        }
+
         $(document).ready(function() {
             // Konfigurasi perhitungan total untuk setiap kelompok input
             const calculations = {
@@ -616,10 +719,10 @@
                     targetInput: 'total_tanggungan',
                     targetSpan: 'total_tanggungan'
                 },
-                pendapatan: {
-                    inputs: ['omset_bulanan', 'gaji_pemohon', 'gaji_pasangan', 'pendapatan_lain'],
-                    targetInput: 'total_pendapatan',
-                    targetSpan: 'total_pendapatan'
+                pengeluaran: {
+                    inputs: ['kebutuhan_pokok', 'biaya_pendidikan', 'pengeluaran_lainnya'],
+                    targetInput: 'total_pengeluaran_rutin',
+                    targetSpan: 'total_pengeluaran_rutin'
                 }
             };
 
@@ -631,7 +734,47 @@
                     });
                 });
             });
+
+            // Tambahkan event listener untuk fungsi jumlah_pendapatan
+            const pendapatanInputs = ['biaya_bahan', 'biaya_tenaga_kerja', 'biaya_lainnya', 'omset_bulanan',
+                'gaji_pemohon', 'gaji_pasangan', 'pendapatan_lain'
+            ];
+            pendapatanInputs.forEach(input => {
+                $(`input[name=${input}]`).on('input', jumlah_pendapatan);
+            });
         });
+
+        // $(document).ready(function() {
+        //     // Konfigurasi perhitungan total untuk setiap kelompok input
+        //     const calculations = {
+        //         aset: {
+        //             inputs: ['persediaan_barang', 'aset_properti', 'nilai_motor', 'nilai_mobil',
+        //                 'aset_lainnya'
+        //             ],
+        //             targetInput: 'total_aset',
+        //             targetSpan: 'total_aset'
+        //         },
+        //         tanggungan: {
+        //             inputs: ['hutang_bank', 'hutang_dagang', 'modal_sendiri'],
+        //             targetInput: 'total_tanggungan',
+        //             targetSpan: 'total_tanggungan'
+        //         },
+        //         pengeluaran: {
+        //             inputs: ['kebutuhan_pokok', 'biaya_pendidikan', 'pengeluaran_lainnya'],
+        //             targetInput: 'total_pengeluaran_rutin',
+        //             targetSpan: 'total_pengeluaran_rutin'
+        //         }
+        //     };
+
+        //     // Setup event listeners untuk semua input
+        //     Object.values(calculations).forEach(calc => {
+        //         calc.inputs.forEach(input => {
+        //             $(`input[name=${input}]`).on('input', () => {
+        //                 calculateTotal(calc.inputs, calc.targetInput, calc.targetSpan);
+        //             });
+        //         });
+        //     });
+        // });
     </script>
 </body>
 

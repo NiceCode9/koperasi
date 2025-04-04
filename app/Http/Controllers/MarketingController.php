@@ -46,32 +46,13 @@ class MarketingController extends Controller
             // 'total_pengeluaran_rutin' => 'required',
             'selisih_dana' => 'required',
             'kemampuan_bayar' => 'required',
-            'plafon_disetujui' => 'required',
-            'jangka_waktu_disetujui' => 'required',
-            'sistem_pembayaran' => 'required',
-            'akad_pembiayaan' => 'required',
-            'jenis_akad_lainnya' => 'required',
-            'harga_jual_bmt' => 'required',
-            'presentase_bagi_hasil' => 'required',
-            'pendapatan_setara_bulanan' => 'required',
-            'angsuran_bulanan' => 'required',
-            'biaya_administrasi' => 'required',
-            'biaya_notaris' => 'required',
-            'biaya_materai' => 'required',
-            'biaya_asuransi' => 'required',
-            'biaya_lain' => 'required',
-            'total_biaya_admin' => 'required',
-            'status_aplikasi' => 'required',
         ]);
 
         $pengajuan = Pengajuan::find($request->pengajuan_id);
         $pengajuan->update([
             'status' => 'survei',
-            'nominal_disetujui' => $request->plafon_disetujui,
-            'angsuran_margin' => $request->angsuran_bulanan,
-            'angsuran' => $request->angsuran_bulanan,
         ]);
 
-        Assignment::create([]);
+        Assignment::create();
     }
 }
