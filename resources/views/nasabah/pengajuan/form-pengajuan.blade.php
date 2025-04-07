@@ -145,8 +145,9 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="text"
-                                            class="form-control @error('nominal') is-invalid @enderror" name="nominal"
-                                            value="{{ old('nominal', $pengajuan->nominal_pengajuan ?? '') }}"
+                                            class="form-control @error('nominal_pengajuan') is-invalid @enderror"
+                                            name="nominal_pengajuan"
+                                            value="{{ old('nominal_pengajuan', $pengajuan->nominal_pengajuan ?? '') }}"
                                             placeholder="Nominal pembiayaan">
                                     </div>
                                     @error('nominal')

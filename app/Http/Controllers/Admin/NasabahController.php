@@ -71,7 +71,7 @@ class NasabahController extends Controller
             Nasabah::create($validated);
             DB::commit();
 
-            return redirect()->route('nasabah.index')->with('success', 'Data nasabah dan akun berhasil ditambahkan');
+            return redirect()->route('admin.nasabah.index')->with('success', 'Data nasabah dan akun berhasil ditambahkan');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -137,7 +137,7 @@ class NasabahController extends Controller
             $nasabah->update($validated);
             DB::commit();
 
-            return redirect()->route('nasabah.index')->with('success', 'Data nasabah dan akun berhasil diperbarui');
+            return redirect()->route('admin.nasabah.index')->with('success', 'Data nasabah dan akun berhasil diperbarui');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -150,6 +150,6 @@ class NasabahController extends Controller
             Storage::delete($nasabah->foto);
         }
         $nasabah->delete();
-        return redirect()->route('nasabah.index')->with('success', 'Data nasabah berhasil dihapus');
+        return redirect()->route('admin.nasabah.index')->with('success', 'Data nasabah berhasil dihapus');
     }
 }

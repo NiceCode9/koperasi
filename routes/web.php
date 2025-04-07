@@ -79,8 +79,12 @@ Route::middleware('auth')->group(function () {
     // Role Marketing
     Route::middleware('checkrole:marketing')->name('marketing.')->name('marketing.')->prefix('marketing')->group(function () {
         Route::get('/pengajuan', [App\Http\Controllers\MarketingController::class, 'pengajuan'])->name('pengajuan.survei.index');
-        Route::get('/pengajuan/{id/show}', [App\Http\Controllers\MarketingController::class, 'show'])->name('pengajuan.surevei.show');
+        // Route::get('/pengajuan/{id/show}', [App\Http\Controllers\MarketingController::class, 'show'])->name('pengajuan.surevei.show');
         Route::get('/pengajuan/{id}/survei', [App\Http\Controllers\MarketingController::class, 'createSurvei'])->name('pengajuan.survei');
         Route::post('/pengajuan/store', [App\Http\Controllers\MarketingController::class, 'storeSurvei'])->name('pengajuan.survei.store');
+        Route::get('/riwayat-survei', [App\Http\Controllers\MarketingController::class, 'riwayatSurvei'])->name('riwayat.survei');
+        Route::get('/riwayat-survei/{id}/show', [App\Http\Controllers\MarketingController::class, 'showRiwayat'])->name('riwayat.survei.show');
+        Route::get('/riwayat-survei/{id}/edit', [App\Http\Controllers\MarketingController::class, 'editSurvei'])->name('riwayat.survei.edit');
+        Route::put('/riwayat-survei/{id}/update', [App\Http\Controllers\MarketingController::class, 'updateSurvei'])->name('riwayat.survei.update');
     });
 });

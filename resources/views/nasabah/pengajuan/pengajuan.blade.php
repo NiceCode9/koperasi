@@ -7,10 +7,12 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title">Data Pengajuan</h4>
-                        <a href="{{ route('nasabah.pengajuan.form') }}" class="btn btn-primary btn-round ml-auto">
-                            <i class="fa fa-plus"></i>
-                            Buat Pengajuan
-                        </a>
+                        @if (auth()->user()->role == 'nasabah')
+                            <a href="{{ route('nasabah.pengajuan.form') }}" class="btn btn-primary btn-round ml-auto">
+                                <i class="fa fa-plus"></i>
+                                Buat Pengajuan
+                            </a>
+                        @endif
                     </div>
                 </div>
 
@@ -77,9 +79,6 @@
                                                 <a href="{{ route('marketing.pengajuan.survei', $item->id) }}"
                                                     class="btn btn-sm btn-success">
                                                     <i class="fas fa-clipboard-list"></i> Survei
-                                                </a>
-                                                <a href="" class="btn btn-sm btn-info">
-                                                    <i class="fas fa-info-circle"></i> Detail
                                                 </a>
                                             @endif
 

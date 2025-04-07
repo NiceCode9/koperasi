@@ -114,6 +114,12 @@
                                     <p>Pengajuan</p>
                                 </a>
                             </li>
+                            <li class="nav-item {{ request()->is('marketing.riwayat.survei') ? 'active' : '' }}">
+                                <a href="{{ route('marketing.riwayat.survei') }}">
+                                    <i class="fas fa-history"></i>
+                                    <p>Riwayat Survei</p>
+                                </a>
+                            </li>
                         @endif
                     </ul>
                 </div>

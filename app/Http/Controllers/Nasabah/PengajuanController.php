@@ -30,7 +30,7 @@ class PengajuanController extends Controller
 
         $validated = $request->validate([
             'jangka_waktu' => 'required|in:3,12,24,36',
-            'nominal' => 'required|numeric',
+            'nominal_pengajuan' => 'required|numeric',
             'keperluan' => 'required|string',
             'jaminan' => 'required|string',
             'ahli_waris' => 'required|string',
@@ -62,7 +62,7 @@ class PengajuanController extends Controller
     {
         $validated = $request->validate([
             'jangka_waktu' => 'required|in:3,12,24,36',
-            'nominal' => 'required|numeric',
+            'nominal_pengajuan' => 'required|numeric',
             'keperluan' => 'required|string',
             'jaminan' => 'required|string',
             'ahli_waris' => 'required|string',

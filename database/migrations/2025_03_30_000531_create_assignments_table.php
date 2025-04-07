@@ -29,13 +29,13 @@ return new class extends Migration
             $table->string('nomor_rekening_anggota')->nullable();
 
             // Analisa Penggunaan Dana
-            $table->text('detail_penggunaan_dana');
+            $table->text('detail_penggunaan_dana')->nullable();
 
             // Analisa Usaha dan Kemampuan Bayar
-            $table->string('jenis_usaha');
-            $table->string('lama_usaha_tahun');
-            $table->integer('jumlah_tenaga_kerja');
-            $table->enum('sistem_penjualan', ['tunai', 'angsuran', 'keduanya']);
+            $table->string('jenis_usaha')->nullable();
+            $table->string('lama_usaha_tahun')->nullable();
+            $table->integer('jumlah_tenaga_kerja')->nullable();
+            $table->enum('sistem_penjualan', ['tunai', 'angsuran', 'keduanya'])->default('tunai');
 
             // Asset Usaha/Pribadi
             $table->decimal('persediaan_barang', 15, 2)->nullable();
@@ -54,7 +54,7 @@ return new class extends Migration
             $table->decimal('total_kewajiban_modal', 15, 2);
 
             // Kondisi Usaha
-            $table->text('tren_penjualan_3bulan');
+            $table->text('tren_penjualan_3bulan')->nullable();
 
             // Penerimaan bulanan
             $table->decimal('omset_bulanan', 15, 2)->nullable();
@@ -71,13 +71,13 @@ return new class extends Migration
             // Pengeluaran bulanan
             $table->decimal('kebutuhan_pokok', 15, 2);
             $table->decimal('biaya_pendidikan', 15, 2)->nullable();
-            $table->decimal('pengeluaran_lainnya', 15, 2);
-            $table->decimal('total_pengeluaran_rutin', 15, 2);
-            $table->decimal('selisih_dana', 15, 2);
-            $table->decimal('kemampuan_bayar', 15, 2);
+            $table->decimal('pengeluaran_lainnya', 15, 2)->nullable();
+            $table->decimal('total_pengeluaran_rutin', 15, 2)->nullable();
+            $table->decimal('selisih_dana', 15, 2)->nullable();
+            $table->decimal('kemampuan_bayar', 15, 2)->nullable();
 
             // Analisa Karakter
-            $table->text('sumber_informasi_karakter');
+            $table->text('sumber_informasi_karakter')->nullable();
             $table->text('analisa_karakter')->nullable();
 
             // Analisa Jaminan
