@@ -52,12 +52,15 @@ Route::middleware('auth')->group(function () {
     });
 
     // Role Admin
-    Route::middleware('checkrole:admin')->prefix('administrator')->name('admin.')->group(function () {
+    Route::middleware('checkrole:admin,manajer')->prefix('administrator')->name('admin.')->group(function () {
         Route::resources([
             'users' => UserController::class,
             'nasabah' => NasabahController::class,
         ]);
         Route::patch('users/{user}/status', [UserController::class, 'updateStatus'])->name('users.status');
+
+        // Manage Pengajuan
+        Route::get('/pengajuan', [App\Http\Controllers\Nasabah\PengajuanController::class, 'index'])->name('pengajuan.index');
     });
 
     // Role Nasabah

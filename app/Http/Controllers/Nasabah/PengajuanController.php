@@ -14,7 +14,16 @@ class PengajuanController extends Controller
 {
     public function index()
     {
-        $pengajuan = Pengajuan::latest()->get();
+        $pengajuan = Pengajuan::query();
+
+        if (Auth::user()->role == 'nasabah') {
+            $pengajuan->where('nasabah_id', Auth::user()->nasabah->id);
+        }
+
+        if (auth()->user()->role == 'admin' || auth()->user()->role == 'manajer') {
+            $pengajuan->where('status', '!=', 'pending');
+        }
+
         return view('nasabah.pengajuan.pengajuan', compact('pengajuan'));
     }
 

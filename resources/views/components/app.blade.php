@@ -74,7 +74,7 @@
                                 <p>Dashboard</p>
                             </a>
                         </li>
-                        @if (auth()->user()->role == 'admin')
+                        @if (auth()->user()->role == 'admin' || auth()->user()->role == 'manajer')
                             <li class="nav-item">
                                 <a data-bs-toggle="collapse" href="#base">
                                     <i class="fas fa-layer-group"></i>

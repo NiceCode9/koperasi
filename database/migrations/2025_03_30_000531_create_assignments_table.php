@@ -129,7 +129,7 @@ return new class extends Migration
             $table->decimal('total_biaya_admin', 15, 2)->nullable(); // Total biaya
 
             // Status Persetujuan
-            $table->foreignId('account_officer_id')->nullable()->constrained('users'); // AO
+            $table->foreignId('marketing_id')->nullable()->constrained('users'); // AO
             $table->foreignId('manager_id')->nullable()->constrained('users'); // Manager
             // $table->foreignId('ketua_id')->nullable()->constrained('users'); // Ketua Umum
             // $table->foreignId('pengurus_id')->nullable()->constrained('users'); // Pengurus

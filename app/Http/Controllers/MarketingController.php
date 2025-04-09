@@ -57,7 +57,7 @@ class MarketingController extends Controller
                 'status' => 'survei',
             ]);
 
-            $request->merge(['account_officer_id' => auth()->user()->id]);
+            $request->merge(['maketing_id' => auth()->user()->id]);
 
             Assignment::create($request->all());
             DB::commit();
@@ -89,7 +89,7 @@ class MarketingController extends Controller
                 'status' => 'survei',
             ]);
 
-            $request->merge(['account_officer_id' => auth()->user()->id]);
+            $request->merge(['maketing_id' => auth()->user()->id]);
 
             Assignment::find($id)->update($request->all());
             DB::commit();
@@ -98,7 +98,6 @@ class MarketingController extends Controller
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollBack();
-            dd($th);
             Alert::error('Error', 'Data survei gagal diupdate');
             return redirect()->back()->with('error', 'Data survei gagal diupdate');
         }
@@ -106,7 +105,7 @@ class MarketingController extends Controller
 
     public function riwayatSurvei()
     {
-        $data = Assignment::with(['pengajuan.nasabah'])->orderBy('created_at', 'desc')->get();
+        $data = Assignment::with(['pengajuan.nasabah'])->where('marketing_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
         return view('marketing.riwayat-survei', compact('data'));
     }
 

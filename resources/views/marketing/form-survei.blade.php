@@ -65,7 +65,9 @@
                                     <label class="form-label">TANGGAL SURVEY</label>
                                     <input type="date"
                                         class="form-control @error('tanggal_survei') is-invalid @enderror"
-                                        name="tanggal_survei" value="{{ old('tanggal_survei') }}" required>
+                                        name="tanggal_survei"
+                                        value="{{ old('tanggal_survei', isset($data) ? $data->tanggal_survei->format('Y-m-d') : \Carbon\Carbon::now()->format('Y-m-d')) }}"
+                                        required>
                                     @error('tanggal_survei')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -243,7 +245,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="persediaan_barang"
-                                            step="0.01" value="{{ old('persediaan_barang') }}">
+                                            step="0.01"
+                                            value="{{ old('persediaan_barang', isset($data) ? $data->persediaan_barang : '') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -251,7 +254,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="aset_properti"
-                                            step="0.01" value="{{ old('aset_properti') }}">
+                                            step="0.01"
+                                            value="{{ old('aset_properti', isset($data) ? $data->aset_properti : '') }}">
                                     </div>
                                 </div>
                             </div>
@@ -261,22 +265,24 @@
                                     <label class="form-label">Kendaraan Motor</label>
                                     <div class="input-group">
                                         <input type="number" class="form-control" name="jumlah_motor"
-                                            value="{{ old('jumlah_motor') }}">
+                                            value="{{ old('jumlah_motor', isset($data) ? $data->jumlah_motor : '') }}">
                                         <span class="input-group-text">Unit</span>
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="nilai_motor"
-                                            value="{{ old('nilai_motor') }}" step="0.01">
+                                            value="{{ old('nilai_motor', isset($data) ? $data->nilai_motor : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Kendaraan Mobil</label>
                                     <div class="input-group">
                                         <input type="number" class="form-control" name="jumlah_mobil"
-                                            value="{{ old('jumlah_mobil') }}">
+                                            value="{{ old('jumlah_mobil', isset($data) ? $data->jumlah_mobil : '') }}">
                                         <span class="input-group-text">Unit</span>
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="nilai_mobil"
-                                            value="{{ old('nilai_mobil') }}" step="0.01">
+                                            value="{{ old('nilai_mobil', isset($data) ? $data->nilai_mobil : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                             </div>
@@ -287,14 +293,16 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" name="aset_lainnya" class="form-control"
-                                            value="{{ old('aset_lainnya') }}" step="0.01">
+                                            value="{{ old('aset_lainnya', isset($data) ? $data->aset_lainnya : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3 d-flex">
                                     <input type="hidden" name="total_aset" id="total_aset"
-                                        value="{{ old('total_aset') }}">
+                                        value="{{ old('total_aset', isset($data) ? $data->total_aset : '') }}">
                                     <h4 class="fw-bold text-decoration-underline"> Total : <span
-                                            class="total_aset"></span></h4>
+                                            class="total_aset"></span>
+                                    </h4>
                                 </div>
                             </div>
 
@@ -305,7 +313,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="hutang_bank"
-                                            value="{{ old('hutang_bank') }}" step="0.01">
+                                            value="{{ old('hutang_bank', isset($data) ? $data->hutang_bank : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3">
@@ -313,7 +322,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="hutang_dagang"
-                                            value="{{ old('hutang_dagang') }}" step="0.01">
+                                            value="{{ old('hutang_dagang', isset($data) ? $data->hutang_dagang : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3">
@@ -321,7 +331,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="modal_sendiri"
-                                            value="{{ old('modal_sendiri') }}" step="0.01">
+                                            value="{{ old('modal_sendiri', isset($data) ? $data->modal_sendiri : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                             </div>
@@ -329,7 +340,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-6 d-flex">
                                     <input type="hidden" name="total_kewajiban_modal" id="total_kewajiban_modal"
-                                        value="{{ old('total_kewajiban_modal') }}">
+                                        value="{{ old('total_kewajiban_modal', isset($data) ? $data->total_kewajiban_modal : '') }}">
                                     <h4 class="fw-bold text-decoration-underline"> Total : <span
                                             class="total_tanggungan"></span></h4>
                                 </div>
@@ -339,7 +350,7 @@
                             <div class="row mb-3">
                                 <div class="col-12">
                                     <label class="form-label">Tren Penjualan 3 Bulan Terakhir</label>
-                                    <textarea class="form-control" name="tren_penjualan_3bulan" rows="3" required>{{ old('tren_penjualan_3bulan') }}</textarea>
+                                    <textarea class="form-control" name="tren_penjualan_3bulan" rows="3" required>{{ old('tren_penjualan_3bulan', isset($data) ? $data->tren_penjualan_3bulan : '') }}</textarea>
                                 </div>
                             </div>
 
@@ -350,7 +361,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="omset_bulanan"
-                                            value="{{ old('omset_bulanan') }}" step="0.01">
+                                            value="{{ old('omset_bulanan', isset($data) ? $data->omset_bulanan : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -358,7 +370,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="biaya_bahan"
-                                            value="{{ old('biaya_bahan') }}" step="0.01">
+                                            value="{{ old('biaya_bahan', isset($data) ? $data->biaya_bahan : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -366,7 +379,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="biaya_tenaga_kerja"
-                                            value="{{ old('biaya_tenaga_kerja') }}" step="0.01">
+                                            value="{{ old('biaya_tenaga_kerja', isset($data) ? $data->biaya_tenaga_kerja : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -374,11 +388,14 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="biaya_lainnya"
-                                            value="{{ old('biaya_lainnya') }}" step="0.01">
+                                            value="{{ old('biaya_lainnya', isset($data) ? $data->biaya_lainnya : '') }}"
+                                            step="0.01">
                                     </div>
-                                    <input type="hidden" name="total_biaya" id="total_biaya">
+                                    <input type="hidden" name="total_biaya" id="total_biaya"
+                                        value="{{ old('total_biaya', isset($data) ? $data->total_biaya : '') }}">
                                     <input type="hidden" name="pendapatan_usaha_bulanan"
-                                        value="{{ old('pendapatan_usaha_bulanan') }}" id="pendapatan_usaha_bulanan">
+                                        value="{{ old('pendapatan_usaha_bulanan', isset($data) ? $data->pendapata_usaha_bulanan : '') }}"
+                                        id="pendapatan_usaha_bulanan">
                                 </div>
                             </div>
 
@@ -389,7 +406,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="gaji_pemohon"
-                                            value="{{ old('gaji_pemohon') }}" step="0.01">
+                                            value="{{ old('gaji_pemohon', isset($data) ? $data->gaji_pemohon : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -397,7 +415,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="gaji_pasangan"
-                                            value="{{ old('gaji_pasangan') }}" step="0.01">
+                                            value="{{ old('gaji_pasangan', isset($data) ? $data->gaji_pasangan : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -405,7 +424,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="pendapatan_lain"
-                                            value="{{ old('pendapatan_lain') }}" step="0.01">
+                                            value="{{ old('pendapatan_lain', isset($data) ? $data->pendapatan_lain : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                             </div>
@@ -413,7 +433,7 @@
                             <div class="row mb-3">
                                 <div class="col-md-6 mb-3">
                                     <input type="hidden" name="total_pendapatan" id="total_pendapatan"
-                                        value="{{ old('total_pendapatan') }}">
+                                        value="{{ old('total_pendapatan', isset($data) ? $data->total_pendapatan : '') }}">
                                     <h4 class="fw-bold text-decoration-underline"> Jumlah Pendapatan : <span
                                             class="total_pendapatan"></span></h4>
                                 </div>
@@ -426,7 +446,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="kebutuhan_pokok"
-                                            value="{{ old('kebutuhan_pokok') }}" step="0.01" required>
+                                            value="{{ old('kebutuhan_pokok', isset($data) ? $data->kebutuhan_pokok : '') }}"
+                                            step="0.01" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3">
@@ -434,7 +455,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="biaya_pendidikan"
-                                            step="0.01" value="{{ old('biaya_pendidikan') }}">
+                                            step="0.01"
+                                            value="{{ old('biaya_pendidikan', isset($data) ? $data->biaya_pendidikan : '') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3">
@@ -442,12 +464,15 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="pengeluaran_lainnya"
-                                            value="{{ old('pengeluaran_lainnya') }}" step="0.01" required>
+                                            value="{{ old('pengeluaran_lainnya', isset($data) ? $data->pengeluaran_lainnya : '') }}"
+                                            step="0.01" required>
                                     </div>
                                 </div>
                                 <div class="col mb-3">
                                     <input type="hidden" class="form-control" name="total_pengeluaran_rutin"
-                                        step="0.01" value="{{ old('total_pengeluaran_rutin') }}" required>
+                                        step="0.01"
+                                        value="{{ old('total_pengeluaran_rutin', isset($data) ? $data->total_pengeluaran_rutin : '') }}"
+                                        required>
                                     <h4 class="fw-bold text-decoration-underline"> Total Pengeluaran Rutin : <span
                                             class="total_pengeluaran_rutin"></span></h4>
                                 </div>
@@ -477,7 +502,8 @@
                                     <label class="form-label">Jenis Kendaraan</label>
                                     <input type="text"
                                         class="form-control @error('jenis_kendaraan') is-invalid @enderror"
-                                        name="jenis_kendaraan" value="{{ old('jenis_kendaraan') }}">
+                                        name="jenis_kendaraan"
+                                        value="{{ old('jenis_kendaraan', isset($data) ? $data->jenis_kendaraan : '') }}">
                                     @error('jenis_kendaraan')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -486,7 +512,8 @@
                                     <label class="form-label">Merk/Tipe</label>
                                     <input type="text"
                                         class="form-control @error('merk_tipe') is-invalid @enderror"
-                                        name="merk_tipe" value="{{ old('merk_tipe') }}">
+                                        name="merk_tipe"
+                                        value="{{ old('merk_tipe', isset($data) ? $data->merk_tipe : '') }}">
                                     @error('merk_tipe')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -497,7 +524,8 @@
                                     <label class="form-label">Nomor Polisi</label>
                                     <input type="text"
                                         class="form-control @error('nomor_polisi') is-invalid @enderror"
-                                        name="nomor_polisi" value="{{ old('nomor_polisi') }}">
+                                        name="nomor_polisi"
+                                        value="{{ old('nomor_polisi', isset($data) ? $data->nomor_polisi : '') }}">
                                     @error('nomor_polisi')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -506,7 +534,8 @@
                                     <label class="form-label">Tahun Pembuatan</label>
                                     <input type="text"
                                         class="form-control @error('tahun_pembuatan') is-invalid @enderror"
-                                        name="tahun_pembuatan" value="{{ old('tahun_pembuatan') }}">
+                                        name="tahun_pembuatan"
+                                        value="{{ old('tahun_pembuatan', isset($data) ? $data->tahun_pembuatan : '') }}">
                                     @error('tahun_pembuatan')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -515,7 +544,8 @@
                                     <label class="form-label">Atas Nama</label>
                                     <input type="text"
                                         class="form-control @error('nama_pemilik') is-invalid @enderror"
-                                        name="nama_pemilik" value="{{ old('nama_pemilik') }}">
+                                        name="nama_pemilik"
+                                        value="{{ old('nama_pemilik', isset($data) ? $data->nama_pemilik : '') }}">
                                     @error('nama_pemilik')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -526,7 +556,8 @@
                                     <label class="form-label">Nomor Rangka</label>
                                     <input type="text"
                                         class="form-control @error('nomor_rangka') is-invalid @enderror"
-                                        name="nomor_rangka" value="{{ old('nomor_rangka') }}">
+                                        name="nomor_rangka"
+                                        value="{{ old('nomor_rangka', isset($data) ? $data->nomor_rangka : '') }}">
                                     @error('nomor_rangka')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -535,7 +566,8 @@
                                     <label class="form-label">Nomor Mesin</label>
                                     <input type="text"
                                         class="form-control @error('nomor_mesin') is-invalid @enderror"
-                                        name="nomor_mesin" value="{{ old('nomor_mesin') }}">
+                                        name="nomor_mesin"
+                                        value="{{ old('nomor_mesin', isset($data) ? $data->nomor_mesin : '') }}">
                                     @error('nomor_mesin')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -546,7 +578,8 @@
                                     <label class="form-label">Nomor BPKB</label>
                                     <input type="text"
                                         class="form-control @error('nomor_bpkb') is-invalid @enderror"
-                                        name="nomor_bpkb" value="{{ old('nomor_bpkb') }}">
+                                        name="nomor_bpkb"
+                                        value="{{ old('nomor_bpkb', isset($data) ? $data->nomor_bpkb : '') }}">
                                     @error('nomor_bpkb')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -554,7 +587,7 @@
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Hubungan dengan Anggota</label>
                                     <input type="text" class="form-control" name="hubungan_dengan_anggota"
-                                        value="{{ old('hubungan_dengan_anggota') }}">
+                                        value="{{ old('hubungan_dengan_anggota', isset($data) ? $data->hubungan_dengan_anggota : '') }}">
                                 </div>
                             </div>
                             <div class="row">
@@ -563,7 +596,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="harga_pasar_kendaraan"
-                                            value="{{ old('harga_pasar_kendaraan') }}" step="0.01">
+                                            value="{{ old('harga_pasar_kendaraan', isset($data) ? $data->harga_pasar_kendaraan : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -571,14 +605,15 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="nilai_taksasi_kendaraan"
-                                            value="{{ old('nilai_taksasi_kendaraan') }}" step="0.01">
+                                            value="{{ old('nilai_taksasi_kendaraan', isset($data) ? $data->nilai_taksasi_kendaraan : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-12">
                                     <label class="form-label">Kondisi Jaminan Kendaraan</label>
-                                    <textarea class="form-control" name="kondisi_jaminan_kendaraan" rows="2">{{ old('kondisi_jaminan_kendaraan') }}</textarea>
+                                    <textarea class="form-control" name="kondisi_jaminan_kendaraan" rows="2">{{ old('kondisi_jaminan_kendaraan', isset($data) ? $data->konididi_jaminan_kendaraan : '') }}</textarea>
                                 </div>
                             </div>
 
@@ -587,36 +622,37 @@
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Jenis Sertifikat</label>
                                     <input type="text" class="form-control" name="jenis_sertifikat"
-                                        value="{{ old('jenis_sertifikat') }}" placeholder="SHM/SHGU/SHGB">
+                                        value="{{ old('jenis_sertifikat', isset($data) ? $data->jenis_sertifikat : '') }}"
+                                        placeholder="SHM/SHGU/SHGB">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Nomor Sertifikat</label>
                                     <input type="text" class="form-control" name="nomor_sertifikat"
-                                        value="{{ old('nomor_sertifikat') }}">
+                                        value="{{ old('nomor_sertifikat', isset($data) ? $data->nomor_sertifikat : '') }}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Atas Nama</label>
                                     <input type="text" class="form-control" name="pemilik_sertifikat"
-                                        value="{{ old('pemilik_sertifikat') }}">
+                                        value="{{ old('pemilik_sertifikat', isset($data) ? $data->pemilik_sertifikat : '') }}">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Luas Tanah/Bangunan</label>
                                     <input type="text" class="form-control" name="luas_tanah_bangunan"
-                                        value="{{ old('luas_tanah_bangunan') }}">
+                                        value="{{ old('luas_tanah_bangunan', isset($data) ? $data->luas_tanah_bangunan : '') }}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Nomor/Tanggal Ukur</label>
                                     <input type="text" class="form-control" name="nomor_tanggal_ukur"
-                                        value="{{ old('nomor_tanggal_ukur') }}">
+                                        value="{{ old('nomor_tanggal_ukur', isset($data) ? $data->nomor_tanggal_ukur : '') }}">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Hubungan Pemilik</label>
                                     <input type="text" class="form-control" name="hubungan_pemilik"
-                                        value="{{ old('hubungan_pemilik') }}">
+                                        value="{{ old('hubungan_pemilik', isset($data) ? $data->hubungan_pemilik : '') }}">
                                 </div>
                             </div>
                             <div class="row">
@@ -625,7 +661,8 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="harga_pasar_tanah"
-                                            value="{{ old('harga_pasar_tanah') }}" step="0.01">
+                                            value="{{ old('harga_pasar_tanah', isset($data) ? $data->harga_pasar_tanah : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -633,14 +670,15 @@
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" class="form-control" name="nilai_taksasi_tanah"
-                                            value="{{ old('harga_taksasi_tanah') }}" step="0.01">
+                                            value="{{ old('harga_taksasi_tanah', isset($data) ? $data->nilai_taksasi_tanah : '') }}"
+                                            step="0.01">
                                     </div>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-12">
                                     <label class="form-label">Kondisi Jaminan Tanah</label>
-                                    <textarea class="form-control" name="kondisi_jaminan_tanah" rows="2">{{ old('kondisi_jaminan_tanah') }}</textarea>
+                                    <textarea class="form-control" name="kondisi_jaminan_tanah" rows="2">{{ old('kondisi_jaminan_tanah', isset($data) ? $data->kondidi_jaminan_tanah : '') }}</textarea>
                                 </div>
                             </div>
                             <div class="text-center mt-3">
@@ -699,6 +737,13 @@
         }
 
         $(document).ready(function() {
+            // if ($('input[name=total_aset]').val()) {
+            //     $('.total_aset').html(parseFloat($('input[name=total_aset]').val()).toLocaleString('id-ID', {
+            //         style: 'currency',
+            //         currency: 'IDR'
+            //     }));
+            // }
+
             // Konfigurasi perhitungan total untuk setiap kelompok input
             const calculations = {
                 aset: {
@@ -729,17 +774,18 @@
                 });
             });
 
-            // Object.values(calculations).forEach(calc => {
-            //     calc.inputs.forEach(input => {
-            //         if ($(`input[name=${calc.targetInput}]`).val() !== '') {
-            //             let value = parseFloat($(`input[name=${calc.targetInput}]`).val()) || 0;
-            //             $(`.${calc.targetSpan}`).html(value.toLocaleString('id-ID', {
-            //                 style: 'currency',
-            //                 currency: 'IDR'
-            //             }));
-            //         }
-            //     });
-            // });
+            Object.values(calculations).forEach(calc => {
+                let total = 0;
+                calc.inputs.forEach(input => {
+                    let value = parseFloat($(`input[name=${input}]`).val()) || 0;
+                    total += value;
+                });
+                $(`input[name=${calc.targetInput}]`).val(total);
+                $(`.${calc.targetSpan}`).html(total.toLocaleString('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR'
+                }));
+            });
 
             // Tambahkan event listener untuk fungsi jumlah_pendapatan
             const pendapatanInputs = ['biaya_bahan', 'biaya_tenaga_kerja', 'biaya_lainnya', 'omset_bulanan',
