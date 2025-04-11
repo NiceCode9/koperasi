@@ -61,6 +61,8 @@ Route::middleware('auth')->group(function () {
 
         // Manage Pengajuan
         Route::get('/pengajuan', [App\Http\Controllers\Nasabah\PengajuanController::class, 'index'])->name('pengajuan.index');
+        Route::get('/pengajuan/{pengajuan}/verifikasi', [App\Http\Controllers\Nasabah\PengajuanController::class, 'verifikasi'])->name('pengajuan.verifikasi');
+        Route::get('/pengajuan/{pengajuan}/hasil-survei', [App\Http\Controllers\Nasabah\PengajuanController::class, 'hasilSurvei'])->name('pengajuan.hasil-survei');
     });
 
     // Role Nasabah

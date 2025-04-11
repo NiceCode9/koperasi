@@ -24,6 +24,10 @@ class PengajuanController extends Controller
             $pengajuan->where('status', '!=', 'pending');
         }
 
+        $pengajuan->orderBy('created_at', 'desc');
+        $pengajuan = $pengajuan->paginate(10);
+        $pengajuan->appends(request()->query());
+
         return view('nasabah.pengajuan.pengajuan', compact('pengajuan'));
     }
 
@@ -108,5 +112,17 @@ class PengajuanController extends Controller
 
         Alert::success('Berhasil', 'Pengajuan Berhasil Dihapus');
         return redirect()->route('nasabah.pengajuan.index');
+    }
+
+    public function verifikasi(string $id)
+    {
+        $pengajuan = Pengajuan::with(['survei', 'nasabah'])->findOrFail($id);
+        return view('admin.verifikasi', compact('pengajuan'));
+    }
+
+    public function hasilSurvei(string $id)
+    {
+        $pengajuan = Pengajuan::findOrFail($id);
+        return view('admin.hasil-survei-pdf', compact('pengajuan'));
     }
 }

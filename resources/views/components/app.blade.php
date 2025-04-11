@@ -96,6 +96,13 @@
                                     </ul>
                                 </div>
                             </li>
+
+                            <li class="nav-item {{ request()->is('admin.pengajuan.*') ? 'active' : '' }}">
+                                <a href="{{ route('admin.pengajuan.index') }}">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                    <p>Pengajuan</p>
+                                </a>
+                            </li>
                         @endif
 
                         @if (auth()->user()->role == 'nasabah')

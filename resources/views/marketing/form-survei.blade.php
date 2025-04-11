@@ -591,7 +591,25 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label for="bukit_kepemilikan" class="form-label">Bukti Kepemilikan</label>
+                                    <select name="bukti_kepemilikan" id="bukti_kepemilikan" class="form-control"
+                                        required>
+                                        <option value="Ada"
+                                            {{ old('bukti_kepemilikan', isset($data) ? $data->bukti_kepemilikan : '') == 'Ada' ? 'selected' : '' }}>
+                                            Ada</option>
+                                        <option value="Kwitansi Jual Beli"
+                                            {{ old('bukti_kepemilikan', isset($data) ? $data->bukti_kepemilikan : '') == 'Kwitansi Jual Beli' ? 'selected' : '' }}>
+                                            Kwitansi Jual Beli</option>
+                                        <option value="Surat Keterangan"
+                                            {{ old('bukti_kepemilikan', isset($data) ? $data->bukti_kepemilikan : '') == 'Surat Keterangan' ? 'selected' : '' }}>
+                                            Surat Keterangan</option>
+                                        <option value="Tidak Ada"
+                                            {{ old('bukti_kepemilikan', isset($data) ? $data->bukti_kepemilikan : '') == 'Tidak Ada' ? 'selected' : '' }}>
+                                            Tidak Ada</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
                                     <label class="form-label">Harga Pasar Kendaraan</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
@@ -600,7 +618,7 @@
                                             step="0.01">
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-4 mb-3">
                                     <label class="form-label">Nilai Taksasi Kendaraan</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
@@ -613,7 +631,7 @@
                             <div class="row mb-3">
                                 <div class="col-12">
                                     <label class="form-label">Kondisi Jaminan Kendaraan</label>
-                                    <textarea class="form-control" name="kondisi_jaminan_kendaraan" rows="2">{{ old('kondisi_jaminan_kendaraan', isset($data) ? $data->konididi_jaminan_kendaraan : '') }}</textarea>
+                                    <textarea class="form-control" name="kondisi_jaminan_kendaraan" rows="2">{{ old('kondisi_jaminan_kendaraan', isset($data) ? $data->kondisi_jaminan_kendaraan : '') }}</textarea>
                                 </div>
                             </div>
 
@@ -678,7 +696,7 @@
                             <div class="row mb-3">
                                 <div class="col-12">
                                     <label class="form-label">Kondisi Jaminan Tanah</label>
-                                    <textarea class="form-control" name="kondisi_jaminan_tanah" rows="2">{{ old('kondisi_jaminan_tanah', isset($data) ? $data->kondidi_jaminan_tanah : '') }}</textarea>
+                                    <textarea class="form-control" name="kondisi_jaminan_tanah" rows="2">{{ old('kondisi_jaminan_tanah', isset($data) ? $data->kondisi_jaminan_tanah : '') }}</textarea>
                                 </div>
                             </div>
                             <div class="text-center mt-3">

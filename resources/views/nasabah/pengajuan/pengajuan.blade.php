@@ -83,7 +83,8 @@
                                             @endif
 
                                             @if (auth()->user()->role == 'admin' || (auth()->user()->role == 'manajer' && $item->status == 'survei'))
-                                                <a href="" class="btn btn-sm btn-success">
+                                                <a href="{{ route('admin.pengajuan.verifikasi', $item->id) }}"
+                                                    class="btn btn-sm btn-success">
                                                     <i class="fas fa-clipboard-list"></i> Verifikasi
                                                 </a>
                                             @endif
@@ -93,6 +94,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        {{ $pengajuan->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
             </div>
