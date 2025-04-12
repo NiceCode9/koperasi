@@ -92,7 +92,8 @@ return new class extends Migration
             $table->string('nomor_mesin')->nullable(); // Nomor mesin
             $table->string('hubungan_dengan_anggota')->nullable(); // Hubungan dengan anggota
             $table->string('nomor_bpkb')->nullable(); // Nomor BPKB
-            $table->boolean('bukti_kepemilikan')->nullable(); // Bukti kepemilikan
+            // $table->boolean('bukti_kepemilikan')->nullable(); // Bukti kepemilikan
+            $table->enum('bukti_kepemilikan', ['Ada', 'Kwitansi Jual Beli', 'Surat Keterangan', 'Tidak Ada'])->nullable(); // Bukti kepemilikan
             $table->decimal('harga_pasar_kendaraan', 15, 2)->nullable(); // Harga pasaran
             $table->decimal('nilai_taksasi_kendaraan', 15, 2)->nullable(); // Nilai taksasi BMT
             $table->text('kondisi_jaminan_kendaraan')->nullable(); // Informasi kondisi jaminan

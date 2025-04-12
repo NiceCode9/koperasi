@@ -18,11 +18,20 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @enderror
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                 <h1 class="text-center mb-4 text-primary">ANALISA PERMOHONAN PEMBIAYAAN</h1>
 
                 <form
-                    action="{{ isset($data) ? route('marketing.riwayat.survei.update', $data->id) : route('marketing.pengajuan.survei.store') }}"
+                    action="{{ isset($data) ? route('marketing.riwayat.survei.update', $data->id) : route('marekting.pengajuan.survei.store') }}"
                     method="POST">
                     @csrf
                     @if (isset($data))
@@ -699,10 +708,147 @@
                                     <textarea class="form-control" name="kondisi_jaminan_tanah" rows="2">{{ old('kondisi_jaminan_tanah', isset($data) ? $data->kondisi_jaminan_tanah : '') }}</textarea>
                                 </div>
                             </div>
-                            <div class="text-center mt-3">
+                            {{-- <div class="text-center mt-3">
                                 <button type="submit"
                                     class="btn btn-primary btn-lg">{{ isset($data) ? 'Update' : 'Submit' }}
                                     Pengajuan</button>
+                            </div> --}}
+                        </div>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                PERSETUJUAN PENGAJUAN PEMBIAYAAN
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-2">Berdasarkan analisa yang telah kami lakukan dengan seksama, maka
+                                    berdasarkan pertimbangan kami bahwa anggota layak untuk mendapatkan fasilitas
+                                    pembiayaan : </p>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nominal_disetujui" class="form-label">Nominal Disetujui</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">Rp</span>
+                                            <input type="number" class="form-control" name="nominal_disetujui"
+                                                value="{{ old('nominal_disetujui', isset($data) ? $data->nominal_disetujui : '') }}"
+                                                step="0.01">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="keperluan" class="form-label">Keperluan</label>
+                                        <input type="text" class="form-control"
+                                            value="{{ old('keperluan', isset($data) ? $data->keperluan : '') }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="jangka_waktu_disetujui" class="form-label">Jangka Waktu
+                                            Disetujui</label>
+                                        <input type="text" class="form-control" name="jangka_waktu_disetujui"
+                                            value="{{ old('jangka_waktu_disetujui', isset($data) ? $data->jangka_waktu_disetujui : '') }}">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="sistem_pembayaran" class="form-label">Sistem Pembayaran</label>
+                                        <select name="sistem_pembayaran" id="sistem_pembayaran" class="form-control"
+                                            required>
+                                            <option value="bulanan">BULANAN</option>
+                                            <option value="jatuh_tempo">JATUH TEMPO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="akad_pembiayaan" class="form-label">Akad Pembiayaan</label>
+                                        <select name="akad_pembiayaan" id="akad_pembiayaan" class="form-control"
+                                            required>
+                                            <option value="mudharabah">MUDHARABAH</option>
+                                            <option value="murabahah">MURABAHAH</option>
+                                            <option value="musyarakah">MUSYARAKAH</option>
+                                            <option value="multi_jasa">MULTI JASA</option>
+                                            <option value="lainnya">LAINNYA</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="harga_jual_bmt" class="form-label">Harga Jual BMT</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">Rp</span>
+                                            <input type="number" class="form-control" name="harga_jual_bmt"
+                                                value="{{ old('harga_jual_bmt', isset($data) ? $data->harga_jual_bmt : '') }}"
+                                                step="0.01">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="presentase_bagi_hasil" class="form-label">Nisbah Bagi
+                                            Hasil BMT</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" name="presentase_bagi_hasil"
+                                                value="{{ old('presentase_bagi_hasil', isset($data) ? $data->presentase_bagi_hasil : '') }}"
+                                                step="0.01">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pendapatan_setara_bulanan" class="form-label">Setara
+                                            Pendapatan/bulan</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">Rp</span>
+                                            <input type="number" class="form-control"
+                                                name="pendapatan_setara_bulanan"
+                                                value="{{ old('pendapatan_setara_bulanan', isset($data) ? $data->pendapatan_setara_bulanan : '') }}"
+                                                step="0.01">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h5 class="mt-4 mb-3">Biaya Pengajuan</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="biaya_administrasi" class="form-label">Biaya Administrasi</label>
+                                        <input type="number" class="form-control" name="biaya_administrasi"
+                                            value="{{ old('biaya_administrasi', isset($data) ? $data->biaya_administrasi : '') }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="biaya_notaris" class="form-label">Biaya Notaris</label>
+                                        <input type="number" class="form-control" name="biaya_notaris"
+                                            value="{{ old('biaya_notaris', isset($data) ? $data->biaya_notaris : '') }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="biaya_materai" class="form-label">Biaya Materai</label>
+                                        <input type="number" class="form-control" name="biaya_materai"
+                                            value="{{ old('biaya_materai', isset($data) ? $data->biaya_materai : '') }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="biaya_asuransi" class="form-label">Biaya Asuransi</label>
+                                        <input type="number" class="form-control" name="biaya_asuransi"
+                                            value="{{ old('biaya_asuransi', isset($data) ? $data->biaya_asuransi : '') }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="biaya_lain" class="form-label">Biaya Lain</label>
+                                        <input type="number" class="form-control" name="biaya_lain"
+                                            value="{{ old('biaya_lain', isset($data) ? $data->biaya_lain : '') }}">
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <input type="hidden" class="form-control" name="total_biaya_admin"
+                                            step="0.01"
+                                            value="{{ old('total_biaya_admin', isset($data) ? $data->total_biaya_admin : '') }}"
+                                            required>
+                                        <h4 class="fw-bold text-decoration-underline"> Total Biaya Admin : <span
+                                                class="total_biaya_admin"></span></h4>
+                                    </div>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <button type="submit"
+                                        class="btn btn-primary btn-lg">{{ isset($data) ? 'Update' : 'Submit' }}
+                                        Pengajuan</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -780,6 +926,13 @@
                     inputs: ['kebutuhan_pokok', 'biaya_pendidikan', 'pengeluaran_lainnya'],
                     targetInput: 'total_pengeluaran_rutin',
                     targetSpan: 'total_pengeluaran_rutin'
+                },
+                biayaAdmin: {
+                    inputs: ['biaya_administrasi', 'biaya_notaris', 'biaya_materai', 'biaya_asuransi',
+                        'biaya_lain'
+                    ],
+                    targetInput: 'total_biaya_admin',
+                    targetSpan: 'total_biaya_admin',
                 }
             };
 

@@ -13,7 +13,7 @@ class MarketingController extends Controller
 {
     public function pengajuan()
     {
-        $pengajuan = Pengajuan::where('status', 'pending')->orderBy('created_at', 'desc')->get();
+        $pengajuan = Pengajuan::where('status', 'pending')->orderBy('created_at', 'desc')->paginate(10);
         return view('nasabah.pengajuan.pengajuan', compact('pengajuan'));
     }
 
@@ -54,6 +54,10 @@ class MarketingController extends Controller
 
             $pengajuan = Pengajuan::find($request->pengajuan_id);
             $pengajuan->update([
+                'nominal_disetujui' => $request->plafon_disetujui,
+                // 'jangka_waktu' => $request->jangka_waktu_disetujui,
+                // 'angsuran' => 'survei',
+                // 'angsuran_margin' => 'survei',
                 'status' => 'survei',
             ]);
 
@@ -76,27 +80,30 @@ class MarketingController extends Controller
     {
         DB::beginTransaction();
         try {
-            $request->validate([
-                'pengajuan_id' => 'required|exists:pengajuans,id',
-                'tanggal_survei' => 'required|date',
-                'jumlah_plafon' => 'required',
-                'hubungan_dengan_bmt' => 'required',
-                'detail_penggunaan_dana' => 'required',
-            ]);
+            // $request->validate([
+            //     'pengajuan_id' => 'required|exists:pengajuans,id',
+            //     'tanggal_survei' => 'required|date',
+            //     'jumlah_plafon' => 'required',
+            //     // 'hubungan_dengan_bmt' => 'required',
+            //     // 'detail_penggunaan_dana' => 'required',
+            // ]);
 
             $pengajuan = Pengajuan::find($request->pengajuan_id);
             $pengajuan->update([
+                'nominal_disetujui' => $request->plafon_disetujui,
                 'status' => 'survei',
             ]);
 
             $request->merge(['maketing_id' => auth()->user()->id]);
 
-            Assignment::find($id)->update($request->all());
+            $survei = Assignment::find($id);
+            $test = $survei->update($request->all());
             DB::commit();
             Alert::success('Success', 'Data survei berhasil diupdate');
             return redirect()->route('marketing.riwayat.survei')->with('success', 'Data survei berhasil diupdate');
         } catch (\Throwable $th) {
-            //throw $th;
+            //throw $th;\
+            dd($th);
             DB::rollBack();
             Alert::error('Error', 'Data survei gagal diupdate');
             return redirect()->back()->with('error', 'Data survei gagal diupdate');
