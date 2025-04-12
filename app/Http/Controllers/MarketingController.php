@@ -61,7 +61,7 @@ class MarketingController extends Controller
                 'status' => 'survei',
             ]);
 
-            $request->merge(['maketing_id' => auth()->user()->id]);
+            $request->merge(['marketing_id' => auth()->user()->id]);
 
             Assignment::create($request->all());
             DB::commit();
