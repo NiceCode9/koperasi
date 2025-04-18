@@ -12,6 +12,7 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Nasabah\PengajuanController;
+use App\Http\Controllers\RegisterController;
 
 // layanan
 Route::get('/pembiayaan-murabahah', function () {
@@ -45,6 +46,13 @@ Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Register
+Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+Route::get('/register/success', function () {
+    return view('auth.register-success');
+})->name('register.success');
 
 Route::middleware('auth')->group(function () {
     Route::controller(DashboardController::class)->group(function () {

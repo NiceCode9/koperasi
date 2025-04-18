@@ -19,6 +19,14 @@
                     </select>
                 </div>
                 <div class="mb-3">
+                    <label for="akad" class="form-label">Akad Pinjaman</label>
+                    <select name="akad" id="akad" class="form-control" required>
+                        <option value="">--Pilih Akad--</option>
+                        <option value="1.5">Murobahah</option>
+                        <option value="1.7">Ijaroh</option>
+                    </select>
+                </div>
+                <div class="mb-3">
                     <button class="btn btn-success" type="button">Hitung</button>
                 </div>
                 {{-- </form> --}}
@@ -27,13 +35,19 @@
 
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <div class="alert alert-info mb-3" role="alert">
-                    <strong>Perhatian!</strong> Bunga yang dikenakan sebesar 2% per bulan.
+                <div class="">
+                    <div class="alert alert-info mb-3" role="alert">
+                        <strong>Perhatian!</strong> Perhitungan ini merupakan simulasi dan bukan persetujuan kredit yang
+                        sebenarnya.
+                    </div>
+                    <a href="{{ route('login') }}" class="btn btn-warning btn-ajukan" style="display: none;">Ajukan
+                        sekarang</a>
                 </div>
 
                 <div class="mb-3">
                     <p id="total"></p>
                     <p id="waktu"></p>
+                    <p id="bunga"></p>
                     <p id="angsuranPokok"></p>
                     <p id="angsuranBungaPerbulan"></p>
                     <p id="totalAngsuran"></p>
@@ -60,12 +74,20 @@
         <script>
             $(document).ready(function() {
                 $('button').on('click', function() {
+                    if ($('#akad option:selected').val() == '' || $('#jumlah').val() == '' || $('#bulan')
+                        .val() == '') {
+                        alert('Semua field harus diisi');
+                        return;
+                    }
                     let table = $('#table-angsuran tbody');
                     table.html('');
                     let jumlah = $('#jumlah').val();
                     let bulan = $('#bulan').val();
-                    let bunga = 0.02;
+                    $('.btn-ajukan').show();
+                    // let bunga = 1.5;
+                    let bunga = parseFloat($('#akad option:selected').val());
                     let html = '';
+
 
                     if (jumlah < 1000000) {
                         alert('Minimal pinjaman adalah Rp 1.000.000');
@@ -73,7 +95,8 @@
                     }
 
                     let angsuranPokok = jumlah / bulan;
-                    let angsuranBungaPerbulan = angsuranPokok * bunga;
+                    let angsuranBungaPerbulan = angsuranPokok * (bunga / 100);
+                    // let angsuranBungaPerbulan = (jumlah * bunga) / 100 / bulan;
                     let totalBunga = angsuranBungaPerbulan * bulan;
 
                     let totalAngsuran = angsuranPokok + angsuranBungaPerbulan;
@@ -107,8 +130,9 @@
                 // `;
                     }
 
-                    $('#total').text('Total Pinjaman' + formatRupiah(totalPinjaman));
-                    $('#waktu').text(bulan + ' bulan');
+                    $('#total').text('Total Pinjaman: ' + formatRupiah(totalPinjaman));
+                    $('#waktu').text('Jangka Waktu : ' + bulan + ' bulan ');
+                    $('#bunga').text('Bunga: ' + bunga + '%');
                     $('#angsuranPokok').text('Angsuran Pokok: ' + formatRupiah(angsuranPokok));
                     $('#angsuranBungaPerbulan').text('Angsuran Bunga: ' + formatRupiah(angsuranBungaPerbulan));
                     $('#totalAngsuran').text('Total Angsuran: ' + formatRupiah(totalAngsuran));
