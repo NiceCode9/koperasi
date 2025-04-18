@@ -35,13 +35,9 @@
 
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <div class="">
-                    <div class="alert alert-info mb-3" role="alert">
-                        <strong>Perhatian!</strong> Perhitungan ini merupakan simulasi dan bukan persetujuan kredit yang
-                        sebenarnya.
-                    </div>
-                    <a href="{{ route('login') }}" class="btn btn-warning btn-ajukan" style="display: none;">Ajukan
-                        sekarang</a>
+                <div class="alert alert-info mb-3" role="alert">
+                    <strong>Perhatian!</strong> Perhitungan ini merupakan simulasi dan bukan persetujuan kredit yang
+                    sebenarnya.
                 </div>
 
                 <div class="mb-3">
@@ -58,13 +54,19 @@
                         <tr>
                             <th>Bulan</th>
                             <th>Angsuran Pokok</th>
-                            <th>Angsuran Bunga</th>
+                            <th>Angsuran Nisbah</th>
                             <th>Total Angsuran</th>
                             <th>Sisa Pinjaman</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
+
+                <div class="text-center">
+                    <a href="{{ route('login') }}" class="btn btn-warning btn-ajukan mt-3 mb-3 "
+                        style="display: none;">Ajukan
+                        sekarang</a>
+                </div>
             </div>
         </div>
 
@@ -132,9 +134,9 @@
 
                     $('#total').text('Total Pinjaman: ' + formatRupiah(totalPinjaman));
                     $('#waktu').text('Jangka Waktu : ' + bulan + ' bulan ');
-                    $('#bunga').text('Bunga: ' + bunga + '%');
+                    $('#bunga').text('Nisbah: ' + bunga + '%');
                     $('#angsuranPokok').text('Angsuran Pokok: ' + formatRupiah(angsuranPokok));
-                    $('#angsuranBungaPerbulan').text('Angsuran Bunga: ' + formatRupiah(angsuranBungaPerbulan));
+                    $('#angsuranBungaPerbulan').text('Angsuran Nisbah: ' + formatRupiah(angsuranBungaPerbulan));
                     $('#totalAngsuran').text('Total Angsuran: ' + formatRupiah(totalAngsuran));
                     table.html(html);
                 });
