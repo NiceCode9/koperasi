@@ -31,7 +31,7 @@
                 <h1 class="text-center mb-4 text-primary">ANALISA PERMOHONAN PEMBIAYAAN</h1>
 
                 <form
-                    action="{{ isset($data) ? route('marketing.riwayat.survei.update', $data->id) : route('marekting.pengajuan.survei.store') }}"
+                    action="{{ isset($data) ? route('marketing.riwayat.survei.update', $data->id) : route('marketing.pengajuan.survei.store') }}"
                     method="POST">
                     @csrf
                     @if (isset($data))

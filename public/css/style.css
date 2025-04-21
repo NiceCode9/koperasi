@@ -673,7 +673,7 @@ nav ul li #btn-login:hover {
 /* Akhir News */
 
 /* Login */
-.login-koperasi {
+/* .login-koperasi {
     background-color: #048383;
     display: flex;
     align-items: center;
@@ -739,6 +739,102 @@ nav ul li #btn-login:hover {
 
 .btn-login:hover {
     background-color: #045c5c;
+} */
+
+/* Login & Register */
+/* Perbaikan untuk login container */
+.login-koperasi {
+    background-color: #048383;
+    display: flex;
+    justify-content: center;
+    /* Pusatkan horizontal */
+    align-items: center;
+    /* Pusatkan vertikal */
+    min-height: 100vh;
+    padding: 20px;
+    margin: 0;
+    width: 100%;
+}
+
+.login-back {
+    width: 100%;
+    max-width: 450px;
+    /* Lebar maksimum card */
+    margin: 0 auto;
+    /* Pusatkan card */
+    padding: 20px;
+}
+
+.login {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 30px;
+}
+
+/* Pastikan form mengambil lebar penuh */
+.login-item {
+    width: 100%;
+}
+
+.g-login {
+    width: 180px;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.input-login {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border 0.3s;
+}
+
+.input-login:focus {
+    border-color: #048383;
+    outline: none;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: #048383;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background-color: #045c5c;
+}
+
+.text-center {
+    text-align: center;
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .login {
+        padding: 20px;
+    }
+
+    .g-login {
+        width: 150px;
+    }
 }
 
 /* Akhir Login */

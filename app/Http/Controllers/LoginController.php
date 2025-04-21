@@ -27,6 +27,9 @@ class LoginController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
+            // if (Auth()->user()->role == 'nasabah' && empty(Auth()->user()->nasabah)) {
+
+            // }
             return redirect()->intended(route('dashboard'));
         }
 

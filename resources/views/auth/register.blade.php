@@ -18,29 +18,47 @@
 <body>
     <main>
         <div class="login-koperasi">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="container">
                 <div class="login-back">
                     <section class="login">
                         <div class="login-item">
                             <img src="{{ asset('gambar/zyro-image.png') }}" alt="login" class="g-login">
-                            <form action="{{ route('login') }}" method="POST">
+                            <form action="{{ route('register.store') }}" method="POST">
                                 @csrf
                                 <div class="input-field">
-                                    <label class="label-login fw-bold" for="username">Email atau No. Telepon</label>
-                                    <input class="input-login" type="text" id="username" name="username"
-                                        placeholder="Masukkan email atau no. telepon" required>
+                                    <label class="label-login fw-bold" for="name">Nama Lengkap</label>
+                                    <input class="input-login" type="text" id="name" name="name"
+                                        placeholder="Masukkan Nama Lengkap" required>
+                                </div>
+                                <div class="input-field">
+                                    <label class="label-login fw-bold" for="email">Email atau No. Telepon</label>
+                                    <input class="input-login" type="email" id="email" name="email"
+                                        placeholder="Masukkan email" required>
+                                </div>
+                                <div class="input-field">
+                                    <label class="label-login fw-bold" for="telephone">Telephone</label>
+                                    <input class="input-login" type="number" id="telephone" name="telephone"
+                                        placeholder="Masukkan Nomor Telephone" required>
                                 </div>
                                 <div class="input-field">
                                     <label class="label-login fw-bold" for="password">Password</label>
                                     <input class="input-login" type="password" id="password" name="password"
                                         placeholder="Masukkan password" required>
                                 </div>
-                                <button class="btn-login" type="submit">Login</button>
+                                <button class="btn-login" type="submit">Register</button>
                                 <div class="text-center mt-3">
-                                    <a href="{{ route('register') }}" class="text-decoration-none">Belum punya akun?
-                                        Daftar
+                                    <a href="{{ route('login') }}" class="text-decoration-none">Sudah punya akun?
+                                        Login
                                         sekarang</a>
-                                </div>
                             </form>
                         </div>
                     </section>

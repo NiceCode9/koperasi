@@ -17,6 +17,10 @@ class PengajuanController extends Controller
         $pengajuan = Pengajuan::query();
 
         if (Auth::user()->role == 'nasabah') {
+            if (empty(Auth::user()->nasabah)) {
+                Alert::warning('Peringatan', 'Silahkan lengkapi profil anda terlebih dahulu');
+                return redirect()->route('nasabah.profile');
+            }
             $pengajuan->where('nasabah_id', Auth::user()->nasabah->id);
         }
 
