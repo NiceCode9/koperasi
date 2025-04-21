@@ -15,21 +15,21 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Admin',
-        //     'email' => 'admin@example.com',
-        //     'telephone' => '081234567890',
-        //     'role' => 'admin',
-        //     'password' => bcrypt('password'),
-        // ]);
+        User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+            'telephone' => '081234567890',
+            'role' => 'admin',
+            'password' => bcrypt('password'),
+        ]);
 
-        // User::factory()->create([
-        //     'name' => 'Marketing',
-        //     'email' => 'marketing@example.com',
-        //     'telephone' => '081234567894',
-        //     'role' => 'marketing',
-        //     'password' => bcrypt('password'),
-        // ]);
+        User::factory()->create([
+            'name' => 'Marketing',
+            'email' => 'marketing@example.com',
+            'telephone' => '081234567894',
+            'role' => 'marketing',
+            'password' => bcrypt('password'),
+        ]);
 
         User::factory()->create([
             'name' => 'Manajer',
@@ -39,8 +39,8 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        // $this->call([
-        //     NasabahSeeder::class,
-        // ]);
+        $this->call([
+            NasabahSeeder::class,
+        ]);
     }
 }

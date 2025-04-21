@@ -51,7 +51,7 @@ return new class extends Migration
             $table->decimal('hutang_bank', 15, 2)->nullable();
             $table->decimal('hutang_dagang', 15, 2)->nullable();
             $table->decimal('modal_sendiri', 15, 2)->nullable();
-            $table->decimal('total_kewajiban_modal', 15, 2);
+            $table->decimal('total_kewajiban_modal', 15, 2)->nullable();
 
             // Kondisi Usaha
             $table->text('tren_penjualan_3bulan')->nullable();
