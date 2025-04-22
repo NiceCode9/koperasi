@@ -487,16 +487,26 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="row mb-3">
+                            <div class="row mb-3">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Kemampuan Bayar</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="kemampuan_bayar"
-                                            step="0.01" required>
+                                        <select class="form-control" name="kemampuan_bayar" required>
+                                            <option value="">Pilih Kemampuan Bayar</option>
+                                            <option value="Baik"
+                                                {{ old('kemampuan_bayar', isset($data) ? $data->kemampuan_bayar : '') == 'Baik' ? 'selected' : '' }}>
+                                                Baik</option>
+                                            <option value="Cukup"
+                                                {{ old('kemampuan_bayar', isset($data) ? $data->kemampuan_bayar : '') == 'Cukup' ? 'selected' : '' }}>
+                                                Cukup</option>
+                                            <option value="Kurang"
+                                                {{ old('kemampuan_bayar', isset($data) ? $data->kemampuan_bayar : '') == 'Kurang' ? 'selected' : '' }}>
+                                                Kurang</option>
+                                        </select>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
 

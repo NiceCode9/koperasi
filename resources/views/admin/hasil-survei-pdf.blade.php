@@ -126,7 +126,7 @@
 
     <div class="form-group">
         <div class="form-label">1. Jumlah Plafon Pengajuan</div>
-        <div class="form-input">Rp. {{ $pengajuan->nominal_pengajuan }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->nominal_pengajuan, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
@@ -164,7 +164,8 @@
 
     <div class="form-group">
         <div class="form-label">7. Nilai Plafon Tertinggi Yang Pernah Diterima</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->plafon_tertinggi_sebelumnya }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->plafon_tertinggi_sebelumnya, 0, ',', '.') }}
+        </div>
     </div>
 
     <div class="form-group">
@@ -215,12 +216,12 @@
 
     <div class="form-group">
         <div class="form-label indent">Persediaan Barang Dagangan</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->persediaan_barang }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->persediaan_barang, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent">Asset Rumah/Toko/Sawah/....</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->asset_properti }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->asset_properti, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
@@ -229,44 +230,44 @@
 
     <div class="form-group">
         <div class="form-label indent">Motor {{ $pengajuan->survei->jumlah_motor }} unit</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->nilai_motor }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->nilai_motor, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent">Mobil {{ $pengajuan->survei->jumlah_mobil }} unit</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->nilai_mobil }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->nilai_mobil, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent">Lainnya</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->asset_lainnya }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->asset_lainnya, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group total-row">
         <div class="form-label indent">Total</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->total_asset }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->total_asset, 0, ',', '.') }}</div>
     </div>
 
     <div class="subsection-title">Kewajiban Yang Ditanggung</div>
 
     <div class="form-group">
         <div class="form-label indent">Hutang Bank</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->hutang_bank }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->hutang_bank, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent">Hutang Dagang</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->hutang_dagang }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->hutang_dagang, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent">Modal Sendiri</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->modal_sendiri }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->modal_sendiri, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group total-row">
         <div class="form-label indent">Total</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->total_kewajiban_modal }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->total_kewajiban_modal, 0, ',', '.') }}</div>
     </div>
 
     <div class="subsection-title">Kondisi Usaha</div>
@@ -290,57 +291,58 @@
 
     <div class="form-group">
         <div class="form-label indent indent">Omset Penjualan/....</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->omset_bulanan }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->omset_bulanan, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group" style="font-weight: bold;">
         <div class="form-label indent indent">Total Omset</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->omset_bulanan }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->omset_bulanan, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent indent">Biaya Bahan Baku/Belanja</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->biaya_bahan }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->biaya_bahan, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent indent">Biaya Tenaga Kerja</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->biaya_tenaga_kerja }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->biaya_tenaga_kerja, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent indent">Biaya Lainnya</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->biaya_lainnya }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->biaya_lainnya, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group" style="font-weight: bold;">
         <div class="form-label indent indent">Jumlah Biaya</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->total_biaya }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->total_biaya, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group" style="font-weight: bold;">
         <div class="form-label indent indent">Pendapatan Usaha/bulan</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->pendapatan_usaha_bulanan }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->pendapatan_usaha_bulanan, 0, ',', '.') }}
+        </div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent">b. Gaji Pemohon (Jika Ada)</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->gaji_pemohon }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->gaji_pemohon, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent">c. Gaji Suami/Istri (Jika Ada)</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->gaji_pasangan }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->gaji_pasangan, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent">d. Pendapatan Lain (Jika Ada)</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->pendapatan_lain }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->pendapatan_lain, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group" style="font-weight: bold;">
         <div class="form-label indent indent">Jumlah Pendapatan</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->total_pendapatan }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->total_pendapatan, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
@@ -349,22 +351,23 @@
 
     <div class="form-group">
         <div class="form-label indent">a. Kebutuhan Pokok</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->kebutuhan_pokok }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->kebutuhan_pokok, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent">b. Pendidikan</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->biaya_pendidikan }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->biaya_pendidikan, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent">c. Kebutuhan Lainnya</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->pengeluaran_lainnya }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->pengeluaran_lainnya, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group" style="font-weight: bold;">
         <div class="form-label indent">Jumlah Pengeluaran Rutin</div>
-        <div class="form-input">Rp. {{ $pengajuan->survei->total_pengeluaran_rutin }}</div>
+        <div class="form-input">Rp. {{ number_format($pengajuan->survei->total_pengeluaran_rutin, 0, ',', '.') }}
+        </div>
     </div>
 
     {{-- <div class="form-group" style="font-weight: bold;">
@@ -446,9 +449,11 @@
 
     <div class="form-group">
         <div class="form-label">Harga Pasaran</div>
-        <div class="form-input">: {{ $pengajuan->survei->harga_pasaran_kendaraan }}</div>
+        <div class="form-input">: Rp. {{ number_format($pengajuan->survei->harga_pasaran_kendaraan, 0, ',', '.') }}
+        </div>
         <div class="form-label">Nilai Taksasi BMT</div>
-        <div class="form-input">: {{ $pengajuan->survei->nilai_taksasi_kendaraan }}</div>
+        <div class="form-input">: Rp. {{ number_format($pengajuan->survei->nilai_taksasi_kendaraan, 0, ',', '.') }}
+        </div>
     </div>
 
     <div class="form-group">
@@ -487,11 +492,11 @@
         </tr>
         <tr>
             <td>g. Harga Pasar</td>
-            <td>: {{ $pengajuan->survei->harga_pasar_tanah }}</td>
+            <td>: Rp. {{ number_format($pengajuan->survei->harga_pasar_tanah, 0, ',', '.') }}</td>
         </tr>
         <tr>
             <td>h. Nilai Taksasi BMT</td>
-            <td>: {{ $pengajuan->survei->nilai_taksasi_tanah }}</td>
+            <td>: Rp. {{ number_format($pengajuan->survei->nilai_taksasi_tanah, 0, ',', '.') }}</td>
         </tr>
         <tr>
             <td>i. Informasi Kondisi Jaminan</td>
@@ -506,7 +511,7 @@
 
     <div class="form-group">
         <div class="form-label">Besar Plafon</div>
-        <div class="form-input">: Rp. {{ $pengajuan->survei->plafon_disetujui }}</div>
+        <div class="form-input">: Rp. {{ number_format($pengajuan->survei->plafon_disetujui, 0, ',', '.') }}</div>
         <div class="form-label">Kegunaan</div>
         <div class="form-input">: {{ $pengajuan->keperluan }}</div>
     </div>
@@ -549,19 +554,19 @@
 
     <div class="form-group">
         <div class="form-label">Harga Jual BMT</div>
-        <div class="form-input">: Rp. {{ $pengajuan->survei->harga_jual_bmt }}</div>
+        <div class="form-input">: Rp. {{ number_format($pengajuan->survei->harga_jual_bmt, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label">Nisbah Bagi Hasil BMT</div>
         <div class="form-input">: {{ $pengajuan->survei->presentase_bagi_hasil }} % Setara pendapatan/bulan Rp.
-            {{ $pengajuan->survei->pendapatan_setara_sebulan }}</div>
+            {{ number_format($pengajuan->survei->pendapatan_setara_sebulan, 0, ',', '.') }}</div>
     </div>
     </div>
 
     <div class="form-group">
         <div class="form-label">Jumlah Angsuran Perbulan</div>
-        <div class="form-input">: Rp. {{ $pengajuan->survei->angsuran_bulanan }}</div>
+        <div class="form-input">: Rp. {{ number_format($pengajuan->survei->angsuran_bulanan, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
@@ -570,32 +575,32 @@
 
     <div class="form-group">
         <div class="form-label indent">Administrasi</div>
-        <div class="form-input">: Rp. {{ $pengajuan->survei->biaya_administrasi }}</div>
+        <div class="form-input">: Rp. {{ number_format($pengajuan->survei->biaya_administrasi, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent">Notaris</div>
-        <div class="form-input">: Rp. {{ $pengajuan->survei->biaya_notaris }}</div>
+        <div class="form-input">: Rp. {{ number_format($pengajuan->survei->biaya_notaris, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent">Materai</div>
-        <div class="form-input">: Rp. {{ $pengajuan->survei->biaya_materai }}</div>
+        <div class="form-input">: Rp. {{ number_format($pengajuan->survei->biaya_materai, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent">Asuransi</div>
-        <div class="form-input">: Rp. {{ $pengajuan->survei->biaya_asuransi }}</div>
+        <div class="form-input">: Rp. {{ number_format($pengajuan->survei->biaya_asuransi, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group">
         <div class="form-label indent">Lain-lain</div>
-        <div class="form-input">: Rp. {{ $pengajuan->survei->biaya_lain }}</div>
+        <div class="form-input">: Rp. {{ number_format($pengajuan->survei->biaya_lain, 0, ',', '.') }}</div>
     </div>
 
     <div class="form-group" style="font-weight: bold;">
         <div class="form-label indent">TOTAL BIAYA-BIAYA</div>
-        <div class="form-input">: Rp. {{ $pengajuan->survei->total_biaya_admin }}</div>
+        <div class="form-input">: Rp. {{ number_format($pengajuan->survei->total_biaya_admin, 0, ',', '.') }}</div>
     </div>
 
     <div class="section-title" style="text-align: center; margin-top: 30px;">KEPUTUSAN ATAS PENGAJUAN PEMBIAYAAN</div>

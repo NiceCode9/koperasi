@@ -29,7 +29,8 @@
                                     <th>Jumlah Pengajuan</th>
                                     <th>Jumlah Disetujui</th>
                                     <th>Jumlah Angsuran (Bulan)</th>
-                                    <th>Status</th>
+                                    <th>Status Pengajuan</th>
+                                    <th>Status Pembayaran</th>
                                     <th>
                                         <i class="fas fa-cogs"></i>
                                     </th>
@@ -61,6 +62,17 @@
                                             </span>
                                         </td>
                                         <td>
+                                            @if ($item->status === 'accepted')
+                                                @if ($item->status_pembayaran == 'lunas')
+                                                    <span class="badge badge-success">LUNAS</span>
+                                                @else
+                                                    <span class="badge badge-warning">BELUM LUNAS</span>
+                                                @endif
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>
                                             @if ($item->status == 'pending' && auth()->user()->role == 'nasabah')
                                                 <a href="{{ route('nasabah.pengajuan.form.edit', $item->id) }}"
                                                     class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -82,11 +94,17 @@
                                                 </a>
                                             @endif
 
-                                            @if (auth()->user()->role == 'admin' || (auth()->user()->role == 'manajer' && $item->status == 'survei'))
-                                                <a href="{{ route('admin.pengajuan.verifikasi', $item->id) }}"
-                                                    class="btn btn-sm btn-success">
-                                                    <i class="fas fa-clipboard-list"></i> Verifikasi
+                                            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'manajer')
+                                                <a href="{{ route('admin.pengajuan.hasil-survei', $item->id) }}"
+                                                    class="btn btn-sm btn-info" target="_blank">
+                                                    <i class="fas fa-clipboard-list"></i> Hasil Survei
                                                 </a>
+                                                @if ($item->status == 'survei')
+                                                    <a href="{{ route('admin.pengajuan.verifikasi', $item->id) }}"
+                                                        class="btn btn-sm btn-success">
+                                                        <i class="fas fa-check"></i> Verifikasi
+                                                    </a>
+                                                @endif
                                             @endif
 
                                         </td>

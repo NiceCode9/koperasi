@@ -35,6 +35,8 @@
     <link rel="stylesheet" href="{{ asset('assets') }}/css/bootstrap.min.css" />
     <link rel="stylesheet" href="{{ asset('assets') }}/css/plugins.min.css" />
     <link rel="stylesheet" href="{{ asset('assets') }}/css/kaiadmin.min.css" />
+
+    @stack('style')
 </head>
 
 <body>
@@ -103,6 +105,13 @@
                                     <p>Pengajuan</p>
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('admin.angsuran.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-money-bill-wave"></i>
+                                    <p>Pembayaran Angsuran</p>
+                                </a>
+                            </li>
                         @endif
 
                         @if (auth()->user()->role == 'nasabah')
@@ -110,6 +119,12 @@
                                 <a href="{{ route('nasabah.pengajuan.index') }}">
                                     <i class="fas fa-hand-holding-usd"></i>
                                     <p>Pengajuan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('nasabah.angsuran.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Angsuran Saya</p>
                                 </a>
                             </li>
                         @endif

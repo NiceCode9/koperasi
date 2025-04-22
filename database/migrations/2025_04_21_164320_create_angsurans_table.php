@@ -14,10 +14,13 @@ return new class extends Migration
         Schema::create('angsurans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pengajuan_id')->constrained();
-            $table->integer('nomor_angsuran');
+            $table->string('nomor_angsuran');
             $table->date('tanggal_jatuh_tempo');
             $table->date('tanggal_bayar')->nullable();
             $table->decimal('jumlah_angsuran', 12, 2);
+            $table->decimal('total_angsuran', 12, 2);
+            $table->decimal('pokok', 12, 2);
+            $table->decimal('margin', 12, 2);
             $table->decimal('denda', 12, 2)->default(0);
             $table->string('status')->default('unpaid');
             $table->timestamps();

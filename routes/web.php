@@ -11,6 +11,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AngsuranController;
 use App\Http\Controllers\Nasabah\PengajuanController;
 use App\Http\Controllers\RegisterController;
 
@@ -71,6 +72,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/pengajuan', [App\Http\Controllers\Nasabah\PengajuanController::class, 'index'])->name('pengajuan.index');
         Route::get('/pengajuan/{pengajuan}/verifikasi', [App\Http\Controllers\Nasabah\PengajuanController::class, 'verifikasi'])->name('pengajuan.verifikasi');
         Route::get('/pengajuan/{pengajuan}/hasil-survei', [App\Http\Controllers\Nasabah\PengajuanController::class, 'hasilSurvei'])->name('pengajuan.hasil-survei');
+        Route::post('/pengajuan/{pengajuan}/verifikasi', [App\Http\Controllers\Nasabah\PengajuanController::class, 'prosesVerifikasi'])->name('pengajuan.verifikasi.proses');
+
+        Route::get('/angsuran', [AngsuranController::class, 'index'])->name('angsuran.index');
+        Route::get('/angsuran/{angsuran}/bayar', [AngsuranController::class, 'create'])->name('angsuran.create');
+        Route::post('/angsuran/{angsuran}/bayar', [AngsuranController::class, 'store'])->name('angsuran.store');
     });
 
     // Role Nasabah
@@ -87,6 +93,8 @@ Route::middleware('auth')->group(function () {
             Route::put('/{pengajuan}', 'update')->name('update');
             Route::delete('/{pengajuan}', 'destroy')->name('destroy');
         });
+
+        Route::get('/angsuran', [AngsuranController::class, 'nasabahIndex'])->name('angsuran.index');
     });
 
     // Role Marketing
@@ -99,5 +107,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/riwayat-survei/{id}/show', [App\Http\Controllers\MarketingController::class, 'showRiwayat'])->name('riwayat.survei.show');
         Route::get('/riwayat-survei/{id}/edit', [App\Http\Controllers\MarketingController::class, 'editSurvei'])->name('riwayat.survei.edit');
         Route::put('/riwayat-survei/{id}/update', [App\Http\Controllers\MarketingController::class, 'updateSurvei'])->name('riwayat.survei.update');
+
+        Route::get('/angsuran', [AngsuranController::class, 'nasabahIndex'])->name('angsuran.index');
     });
 });

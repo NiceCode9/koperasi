@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Nasabah;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pengajuan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -127,6 +128,96 @@ class PengajuanController extends Controller
     public function hasilSurvei(string $id)
     {
         $pengajuan = Pengajuan::findOrFail($id);
-        return view('admin.hasil-survei-pdf', compact('pengajuan'));
+        $pdf = Pdf::loadView('admin.hasil-survei-pdf', compact('pengajuan'));
+        return $pdf->stream();
+    }
+
+    public function prosesVerifikasi(Request $request, string $id)
+    {
+        $request->validate([
+            'status' => 'required|in:accepted,rejected',
+            'nominal_disetujui' => 'required_if:status,accepted|numeric|min:0',
+            'angsuran' => 'required_if:status,accepted|numeric|min:1',
+            'catatan' => 'nullable|string',
+        ]);
+
+        $pengajuan = Pengajuan::findOrFail($id);
+
+        if ($request->status == 'accepted') {
+            $pengajuan->update([
+                'status' => 'accepted',
+                'nominal_disetujui' => $request->nominal_disetujui,
+                'angsuran' => $request->angsuran,
+                'tanggal_assesment' => now(),
+                'keterangan' => $request->catatan,
+            ]);
+
+            // Buat data angsuran (jika diperlukan)
+            $this->generateAngsuran($pengajuan);
+
+            Alert::success('Berhasil', 'Pengajuan telah disetujui');
+        } else {
+            $pengajuan->update([
+                'status' => 'rejected',
+                'tanggal_assesment' => now(),
+                'keterangan' => $request->catatan,
+            ]);
+
+            Alert::success('Berhasil', 'Pengajuan telah ditolak');
+        }
+
+        return redirect()->route('admin.pengajuan.index');
+    }
+
+    private function generateAngsuran(Pengajuan $pengajuan)
+    {
+        // Hapus angsuran lama jika ada
+        $pengajuan->angsurans()->delete();
+
+        $jangkaWaktu = $pengajuan->survei->jangka_waktu_disetujui;
+        $plafon = $pengajuan->survei->plafon_disetujui;
+        $margin = $pengajuan->survei->persentase_bagi_hasil;
+
+        $totalAngsuran = $plafon + ($plafon * $margin / 100);
+        $jumlahPerBulan = $totalAngsuran / $jangkaWaktu;
+
+        // Format nomor pengajuan untuk dijadikan dasar nomor angsuran
+        $baseNumber = str_replace('PGJ-', '', $pengajuan->nomor_pengajuan);
+
+        for ($i = 1; $i <= $jangkaWaktu; $i++) {
+            $nomorAngsuran = 'ANG-' . $baseNumber . '-' . str_pad($i, 3, '0', STR_PAD_LEFT);
+
+            $pengajuan->angsurans()->create([
+                'nomor_angsuran' => $nomorAngsuran,
+                'tanggal_jatuh_tempo' => now()->addMonths($i),
+                'jumlah_angsuran' => $jumlahPerBulan,
+                'total_angsuran' => $totalAngsuran,
+                'pokok' => $plafon / $jangkaWaktu,
+                'margin' => ($plafon * $margin / 100) / $jangkaWaktu,
+                'status' => 'unpaid',
+            ]);
+        }
+
+        // Update total angsuran di pengajuan
+        $pengajuan->update([
+            'nominal_disetujui' => $plafon,
+            'angsuran' => $jumlahPerBulan,
+            'angsuran_margin' => ($plafon * $margin / 100) / $jangkaWaktu,
+        ]);
+    }
+
+    private function checkPengajuanLunas(Pengajuan $pengajuan)
+    {
+        $unpaidCount = $pengajuan->angsurans()->where('status', '!=', 'paid')->count();
+
+        if ($unpaidCount === 0) {
+            $pengajuan->update([
+                'status_pembayaran' => 'lunas',
+            ]);
+        } else {
+            $pengajuan->update([
+                'status_pembayaran' => 'belum_lunas'
+            ]);
+        }
     }
 }

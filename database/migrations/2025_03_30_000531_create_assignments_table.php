@@ -74,7 +74,7 @@ return new class extends Migration
             $table->decimal('pengeluaran_lainnya', 15, 2)->nullable();
             $table->decimal('total_pengeluaran_rutin', 15, 2)->nullable();
             $table->decimal('selisih_dana', 15, 2)->nullable();
-            $table->decimal('kemampuan_bayar', 15, 2)->nullable();
+            $table->enum('kemampuan_bayar', ['Baik', 'Cukup', 'Kurang'])->default('Baik');
 
             // Analisa Karakter
             $table->text('sumber_informasi_karakter')->nullable();
