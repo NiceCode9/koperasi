@@ -6,12 +6,12 @@
             <div class="card">
                 <div class="card-header p-0">
                     <ul class="nav nav-tabs" id="pengajuan-tabs" role="tablist">
-                        @foreach ($pengajuan as $peng)
+                        @foreach ($pengajuan as $index => $peng)
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link {{ $loop->first ? 'active' : '' }}" id="tab-{{ $peng->id }}-tab"
-                                    data-toggle="tab" data-target="#tab-{{ $peng->id }}" type="button" role="tab"
-                                    aria-controls="tab-{{ $peng->id }}"
-                                    aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                <button class="nav-link {{ $index === 0 ? 'active' : '' }}" id="tab-{{ $peng->id }}-tab"
+                                    data-bs-toggle="tab" data-bs-target="#tab-{{ $peng->id }}" type="button"
+                                    role="tab" aria-controls="tab-{{ $peng->id }}"
+                                    aria-selected="{{ $index === 0 ? 'true' : 'false' }}">
                                     Pengajuan #{{ $peng->nomor_pengajuan }}
                                     <span class="badge {{ $peng->isLunas() ? 'bg-success' : 'bg-warning' }} ml-2">
                                         {{ $peng->isLunas() ? 'LUNAS' : 'BELUM LUNAS' }}
@@ -23,13 +23,51 @@
                 </div>
                 <div class="card-body">
                     <div class="tab-content" id="pengajuan-tabsContent">
-                        @foreach ($pengajuan as $peng)
-                            <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="tab-{{ $peng->id }}"
+                        @foreach ($pengajuan as $index => $peng)
+                            <div class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}" id="tab-{{ $peng->id }}"
                                 role="tabpanel" aria-labelledby="tab-{{ $peng->id }}-tab">
 
-                                @include('nasabah.angsuran._partials.angsuran_table', [
-                                    'angsurans' => $peng->angsurans()->paginate(5),
-                                ])
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr class="bg-light">
+                                                <th>No</th>
+                                                <th>Nomor Angsuran</th>
+                                                <th>Jatuh Tempo</th>
+                                                <th>Status</th>
+                                                <th>Jumlah</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($peng->angsurans as $index => $angsuran)
+                                                <tr>
+                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{{ $angsuran->nomor_angsuran }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($angsuran->tanggal_jatuh_tempo)->format('d/m/Y') }}
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="badge {{ $angsuran->status === 'paid' ? 'bg-success' : ($angsuran->status === 'late' ? 'bg-warning' : 'bg-danger') }}">
+                                                            @if ($angsuran->status === 'paid')
+                                                                Lunas
+                                                            @elseif($angsuran->status === 'late')
+                                                                Terlambat
+                                                            @else
+                                                                Belum Bayar
+                                                            @endif
+                                                        </span>
+                                                    </td>
+                                                    <td>Rp {{ number_format($angsuran->jumlah_angsuran, 0, ',', '.') }}
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="5" class="text-center">Tidak ada data angsuran</td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -39,7 +77,7 @@
     </div>
 @endsection
 
-@push('styles')
+@push('style')
     <style>
         .nav-tabs .nav-link {
             cursor: pointer;
@@ -65,11 +103,13 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Inisialisasi tab Bootstrap
-            const tabElms = document.querySelectorAll('button[data-toggle="tab"]');
-            tabElms.forEach(tabEl => {
-                tabEl.addEventListener('click', function(event) {
-                    const tabTrigger = new bootstrap.Tab(this);
+            // Inisialisasi tab Bootstrap 5
+            const triggerTabList = [].slice.call(document.querySelectorAll('#pengajuan-tabs button'));
+            triggerTabList.forEach(function(triggerEl) {
+                const tabTrigger = new bootstrap.Tab(triggerEl);
+
+                triggerEl.addEventListener('click', function(event) {
+                    event.preventDefault();
                     tabTrigger.show();
                 });
             });
