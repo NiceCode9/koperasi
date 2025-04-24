@@ -742,7 +742,7 @@
                                         <div class="input-group">
                                             <span class="input-group-text">Rp</span>
                                             <input type="number" class="form-control" name="nominal_disetujui"
-                                                value="{{ old('nominal_disetujui', isset($data) ? $data->nominal_disetujui : '') }}"
+                                                value="{{ old('nominal_disetujui', isset($data) ? $data->plafon_disetujui : '') }}"
                                                 step="0.01">
                                         </div>
                                     </div>
@@ -792,11 +792,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="presentase_bagi_hasil" class="form-label">Nisbah Bagi
+                                        <label for="persentase_bagi_hasil" class="form-label">Nisbah Bagi
                                             Hasil BMT</label>
                                         <div class="input-group">
-                                            <input type="number" class="form-control" name="presentase_bagi_hasil"
-                                                value="{{ old('presentase_bagi_hasil', isset($data) ? $data->presentase_bagi_hasil : '') }}"
+                                            <input type="number" class="form-control" name="persentase_bagi_hasil"
+                                                value="{{ old('persentase_bagi_hasil', isset($data) ? $data->persentase_bagi_hasil : '') }}"
                                                 step="0.01">
                                             <span class="input-group-text">%</span>
                                         </div>
