@@ -743,7 +743,8 @@
                                             <span class="input-group-text">Rp</span>
                                             <input type="text" class="form-control" name="nominal_disetujui"
                                                 value="{{ old('nominal_disetujui', isset($data) ? number_format($data->plafon_disetujui, 0, ',', '.') : '') }}"
-                                                step="0.01">
+                                                step="0.01"
+                                                max="{{ isset($data) ? $data->pengajuan->nominal_pengajuan : $pengajuan->nominal_pengajuan }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-3">

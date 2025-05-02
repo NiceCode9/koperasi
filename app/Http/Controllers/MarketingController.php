@@ -54,14 +54,17 @@ class MarketingController extends Controller
 
             $pengajuan = Pengajuan::find($request->pengajuan_id);
             $pengajuan->update([
-                'nominal_disetujui' => $request->plafon_disetujui,
+                'nominal_disetujui' => $request->nominal_disetujui,
                 // 'jangka_waktu' => $request->jangka_waktu_disetujui,
                 // 'angsuran' => 'survei',
                 // 'angsuran_margin' => 'survei',
                 'status' => 'survei',
             ]);
 
-            $request->merge(['marketing_id' => auth()->user()->id]);
+            $request->merge([
+                'marketing_id' => auth()->user()->id,
+                'plafon_disetujui' => $request->nominal_disetujui,
+            ]);
 
             Assignment::create($request->all());
             DB::commit();
@@ -90,11 +93,14 @@ class MarketingController extends Controller
 
             $pengajuan = Pengajuan::find($request->pengajuan_id);
             $pengajuan->update([
-                'nominal_disetujui' => $request->plafon_disetujui,
+                'nominal_disetujui' => $request->nominal_disetujui,
                 'status' => 'survei',
             ]);
 
-            $request->merge(['maketing_id' => auth()->user()->id]);
+            $request->merge([
+                'maketing_id' => auth()->user()->id,
+                'plafon_disetujui' => $request->nominal_disetujui,
+            ]);
 
             $survei = Assignment::find($id);
             $test = $survei->update($request->all());
