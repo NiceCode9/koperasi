@@ -94,7 +94,7 @@ class AngsuranController extends Controller
         // Hitung keterlambatan otomatis
         $tanggalBayar = Carbon::parse($request->tanggal_bayar);
         $jatuhTempo = Carbon::parse($angsuran->tanggal_jatuh_tempo);
-        $hariTerlambat = $tanggalBayar->diffInDays($jatuhTempo, false); // false = hanya hitung jika positif
+        $hariTerlambat = $jatuhTempo->diffInDays($tanggalBayar, false); // false = hitung hari terlambat jika jatuh tempo lebih awal
 
         $denda = 0;
         $status = 'paid';
