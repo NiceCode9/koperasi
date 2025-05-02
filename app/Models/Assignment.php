@@ -127,7 +127,6 @@ class Assignment extends Model
         'pengeluaran_lainnya' => 'decimal:2',
         'total_pengeluaran_rutin' => 'decimal:2',
         'selisih_dana' => 'decimal:2',
-        'kemampuan_bayar' => 'decimal:2',
         'harga_pasar_kendaraan' => 'decimal:2',
         'nilai_taksasi_kendaraan' => 'decimal:2',
         'harga_pasar_tanah' => 'decimal:2',

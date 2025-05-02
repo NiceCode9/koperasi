@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport"="width=device-width, initial-scale=1">
     <title>Analisa Permohonan Pembiayaan</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -85,10 +85,10 @@
                                     <label class="form-label">Jumlah Plafon Pengajuan</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number"
+                                        <input type="text"
                                             class="form-control @error('jumlah_plafon') is-invalid @enderror"
                                             name="jumlah_plafon" step="0.01"
-                                            value="{{ old('jumlah_plafon', isset($data) ? $data->pengajuan->nominal_pengajuan : $pengajuan->nominal_pengajuan) }}"
+                                            value="{{ old('jumlah_plafon', isset($data) ? number_format($data->pengajuan->nominal_pengajuan, 0, ',', '.') : number_format($pengajuan->nominal_pengajuan, 0, ',', '.')) }}"
                                             required>
                                         @error('jumlah_plafon')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -133,7 +133,7 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label">Jumlah Hubungan (Jika Lama)</label>
-                                    <input type="number"
+                                    <input type="text"
                                         class="form-control @error('jumlah_hubungan') is-invalid @enderror"
                                         name="jumlah_hubungan"
                                         value="{{ old('jumlah_hubungan', isset($data) ?? $data->jumlah_hubungan) }}">
@@ -145,10 +145,10 @@
                                     <label class="form-label">Plafon Tertinggi Sebelumnya</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number"
+                                        <input type="text"
                                             class="form-control @error('plafon_tertinggi_sebelumnya') is-invalid @enderror"
                                             name="plafon_tertinggi_sebelumnya" step="0.01"
-                                            value="{{ old('plafon_tertinggi_sebelumnya', isset($data) ? $data->plafon_tertinggi_sebelumnya : '') }}">
+                                            value="{{ old('plafon_tertinggi_sebelumnya', isset($data) ? number_format($data->plafon_tertinggi_sebelumnya, 0, ',', '.') : '') }}">
                                         @error('plafon_tertinggi_sebelumnya')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -225,7 +225,7 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label">Jumlah Tenaga Kerja</label>
-                                    <input type="number" class="form-control" name="jumlah_tenaga_kerja"
+                                    <input type="text" class="form-control" name="jumlah_tenaga_kerja"
                                         value="{{ old('jumlah_tenaga_kerja', isset($data) ? $data->jumlah_tenaga_kerja : '') }}"
                                         required>
                                 </div>
@@ -253,18 +253,18 @@
                                     <label class="form-label">Persediaan Barang Dagangan</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="persediaan_barang"
+                                        <input type="text" class="form-control" name="persediaan_barang"
                                             step="0.01"
-                                            value="{{ old('persediaan_barang', isset($data) ? $data->persediaan_barang : '') }}">
+                                            value="{{ old('persediaan_barang', isset($data) ? number_format($data->persediaan_barang, 0, ',', '.') : '') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Aset Properti</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="aset_properti"
+                                        <input type="text" class="form-control" name="aset_properti"
                                             step="0.01"
-                                            value="{{ old('aset_properti', isset($data) ? $data->aset_properti : '') }}">
+                                            value="{{ old('aset_properti', isset($data) ? number_format($data->aset_properti, 0, ',', '.') : '') }}">
                                     </div>
                                 </div>
                             </div>
@@ -273,24 +273,24 @@
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Kendaraan Motor</label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" name="jumlah_motor"
+                                        <input type="text" class="form-control" name="jumlah_motor"
                                             value="{{ old('jumlah_motor', isset($data) ? $data->jumlah_motor : '') }}">
                                         <span class="input-group-text">Unit</span>
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="nilai_motor"
-                                            value="{{ old('nilai_motor', isset($data) ? $data->nilai_motor : '') }}"
+                                        <input type="text" class="form-control" name="nilai_motor"
+                                            value="{{ old('nilai_motor', isset($data) ? number_format($data->nilai_motor, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Kendaraan Mobil</label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" name="jumlah_mobil"
+                                        <input type="text" class="form-control" name="jumlah_mobil"
                                             value="{{ old('jumlah_mobil', isset($data) ? $data->jumlah_mobil : '') }}">
                                         <span class="input-group-text">Unit</span>
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="nilai_mobil"
-                                            value="{{ old('nilai_mobil', isset($data) ? $data->nilai_mobil : '') }}"
+                                        <input type="text" class="form-control" name="nilai_mobil"
+                                            value="{{ old('nilai_mobil', isset($data) ? number_format($data->nilai_mobil, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -301,8 +301,8 @@
                                     <label class="form-label">Aset Lainnya</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" name="aset_lainnya" class="form-control"
-                                            value="{{ old('aset_lainnya', isset($data) ? $data->aset_lainnya : '') }}"
+                                        <input type="text" name="aset_lainnya" class="form-control"
+                                            value="{{ old('aset_lainnya', isset($data) ? number_format($data->aset_lainnya, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -321,8 +321,8 @@
                                     <label class="form-label">Hutang Bank</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="hutang_bank"
-                                            value="{{ old('hutang_bank', isset($data) ? $data->hutang_bank : '') }}"
+                                        <input type="text" class="form-control" name="hutang_bank"
+                                            value="{{ old('hutang_bank', isset($data) ? number_format($data->hutang_bank, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -330,8 +330,8 @@
                                     <label class="form-label">Hutang Dagang</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="hutang_dagang"
-                                            value="{{ old('hutang_dagang', isset($data) ? $data->hutang_dagang : '') }}"
+                                        <input type="text" class="form-control" name="hutang_dagang"
+                                            value="{{ old('hutang_dagang', isset($data) ? number_format($data->hutang_dagang, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -339,8 +339,8 @@
                                     <label class="form-label">Modal Sendiri</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="modal_sendiri"
-                                            value="{{ old('modal_sendiri', isset($data) ? $data->modal_sendiri : '') }}"
+                                        <input type="text" class="form-control" name="modal_sendiri"
+                                            value="{{ old('modal_sendiri', isset($data) ? number_format($data->modal_sendiri, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -369,8 +369,8 @@
                                     <label class="form-label">Omset Bulanan</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="omset_bulanan"
-                                            value="{{ old('omset_bulanan', isset($data) ? $data->omset_bulanan : '') }}"
+                                        <input type="text" class="form-control" name="omset_bulanan"
+                                            value="{{ old('omset_bulanan', isset($data) ? number_format($data->omset_bulanan, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -378,8 +378,8 @@
                                     <div class="form-label">Biaya Bahan Baku</div>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="biaya_bahan"
-                                            value="{{ old('biaya_bahan', isset($data) ? $data->biaya_bahan : '') }}"
+                                        <input type="text" class="form-control" name="biaya_bahan"
+                                            value="{{ old('biaya_bahan', isset($data) ? number_format($data->biaya_bahan, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -387,8 +387,8 @@
                                     <div class="form-label">Biaya Tenaga Kerja</div>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="biaya_tenaga_kerja"
-                                            value="{{ old('biaya_tenaga_kerja', isset($data) ? $data->biaya_tenaga_kerja : '') }}"
+                                        <input type="text" class="form-control" name="biaya_tenaga_kerja"
+                                            value="{{ old('biaya_tenaga_kerja', isset($data) ? number_format($data->biaya_tenaga_kerja, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -396,8 +396,8 @@
                                     <div class="form-label">Biaya Lainnya</div>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="biaya_lainnya"
-                                            value="{{ old('biaya_lainnya', isset($data) ? $data->biaya_lainnya : '') }}"
+                                        <input type="text" class="form-control" name="biaya_lainnya"
+                                            value="{{ old('biaya_lainnya', isset($data) ? number_format($data->biaya_lainnya, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                     <input type="hidden" name="total_biaya" id="total_biaya"
@@ -414,8 +414,8 @@
                                     <label class="form-label">Gaji Pemohon</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="gaji_pemohon"
-                                            value="{{ old('gaji_pemohon', isset($data) ? $data->gaji_pemohon : '') }}"
+                                        <input type="text" class="form-control" name="gaji_pemohon"
+                                            value="{{ old('gaji_pemohon', isset($data) ? number_format($data->gaji_pemohon, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -423,8 +423,8 @@
                                     <label class="form-label">Gaji Pasangan</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="gaji_pasangan"
-                                            value="{{ old('gaji_pasangan', isset($data) ? $data->gaji_pasangan : '') }}"
+                                        <input type="text" class="form-control" name="gaji_pasangan"
+                                            value="{{ old('gaji_pasangan', isset($data) ? number_format($data->gaji_pasangan, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -432,8 +432,8 @@
                                     <label class="form-label">Pendapatan Lain</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="pendapatan_lain"
-                                            value="{{ old('pendapatan_lain', isset($data) ? $data->pendapatan_lain : '') }}"
+                                        <input type="text" class="form-control" name="pendapatan_lain"
+                                            value="{{ old('pendapatan_lain', isset($data) ? number_format($data->pendapatan_lain, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -454,8 +454,8 @@
                                     <label class="form-label">Kebutuhan Pokok</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="kebutuhan_pokok"
-                                            value="{{ old('kebutuhan_pokok', isset($data) ? $data->kebutuhan_pokok : '') }}"
+                                        <input type="text" class="form-control" name="kebutuhan_pokok"
+                                            value="{{ old('kebutuhan_pokok', isset($data) ? number_format($data->kebutuhan_pokok, 0, ',', '.') : '') }}"
                                             step="0.01" required>
                                     </div>
                                 </div>
@@ -463,17 +463,17 @@
                                     <label class="form-label">Biaya Pendidikan</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="biaya_pendidikan"
+                                        <input type="text" class="form-control" name="biaya_pendidikan"
                                             step="0.01"
-                                            value="{{ old('biaya_pendidikan', isset($data) ? $data->biaya_pendidikan : '') }}">
+                                            value="{{ old('biaya_pendidikan', isset($data) ? number_format($data->biaya_pendidikan, 0, ',', '.') : '') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">Pengeluaran Lainnya</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="pengeluaran_lainnya"
-                                            value="{{ old('pengeluaran_lainnya', isset($data) ? $data->pengeluaran_lainnya : '') }}"
+                                        <input type="text" class="form-control" name="pengeluaran_lainnya"
+                                            value="{{ old('pengeluaran_lainnya', isset($data) ? number_format($data->pengeluaran_lainnya, 0, ',', '.') : '') }}"
                                             step="0.01" required>
                                     </div>
                                 </div>
@@ -632,8 +632,8 @@
                                     <label class="form-label">Harga Pasar Kendaraan</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="harga_pasar_kendaraan"
-                                            value="{{ old('harga_pasar_kendaraan', isset($data) ? $data->harga_pasar_kendaraan : '') }}"
+                                        <input type="text" class="form-control" name="harga_pasar_kendaraan"
+                                            value="{{ old('harga_pasar_kendaraan', isset($data) ? number_format($data->harga_pasar_kendaraan, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -641,8 +641,8 @@
                                     <label class="form-label">Nilai Taksasi Kendaraan</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="nilai_taksasi_kendaraan"
-                                            value="{{ old('nilai_taksasi_kendaraan', isset($data) ? $data->nilai_taksasi_kendaraan : '') }}"
+                                        <input type="text" class="form-control" name="nilai_taksasi_kendaraan"
+                                            value="{{ old('nilai_taksasi_kendaraan', isset($data) ? number_format($data->nilai_taksasi_kendaraan, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -697,8 +697,8 @@
                                     <label class="form-label">Harga Pasar Tanah</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="harga_pasar_tanah"
-                                            value="{{ old('harga_pasar_tanah', isset($data) ? $data->harga_pasar_tanah : '') }}"
+                                        <input type="text" class="form-control" name="harga_pasar_tanah"
+                                            value="{{ old('harga_pasar_tanah', isset($data) ? number_format($data->harga_pasar_tanah, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -706,8 +706,8 @@
                                     <label class="form-label">Nilai Taksasi Tanah</label>
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control" name="nilai_taksasi_tanah"
-                                            value="{{ old('harga_taksasi_tanah', isset($data) ? $data->nilai_taksasi_tanah : '') }}"
+                                        <input type="text" class="form-control" name="nilai_taksasi_tanah"
+                                            value="{{ old('harga_taksasi_tanah', isset($data) ? number_format($data->nilai_taksasi_tanah, 0, ',', '.') : '') }}"
                                             step="0.01">
                                     </div>
                                 </div>
@@ -741,8 +741,8 @@
                                         <label for="nominal_disetujui" class="form-label">Nominal Disetujui</label>
                                         <div class="input-group">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="number" class="form-control" name="nominal_disetujui"
-                                                value="{{ old('nominal_disetujui', isset($data) ? $data->plafon_disetujui : '') }}"
+                                            <input type="text" class="form-control" name="nominal_disetujui"
+                                                value="{{ old('nominal_disetujui', isset($data) ? number_format($data->plafon_disetujui, 0, ',', '.') : '') }}"
                                                 step="0.01">
                                         </div>
                                     </div>
@@ -784,8 +784,8 @@
                                         <label for="harga_jual_bmt" class="form-label">Harga Jual BMT</label>
                                         <div class="input-group">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="number" class="form-control" name="harga_jual_bmt"
-                                                value="{{ old('harga_jual_bmt', isset($data) ? $data->harga_jual_bmt : '') }}"
+                                            <input type="text" class="form-control" name="harga_jual_bmt"
+                                                value="{{ old('harga_jual_bmt', isset($data) ? number_format($data->harga_jual_bmt, 0, ',', '.') : '') }}"
                                                 step="0.01">
                                         </div>
                                     </div>
@@ -795,7 +795,7 @@
                                         <label for="persentase_bagi_hasil" class="form-label">Nisbah Bagi
                                             Hasil BMT</label>
                                         <div class="input-group">
-                                            <input type="number" class="form-control" name="persentase_bagi_hasil"
+                                            <input type="text" class="form-control" name="persentase_bagi_hasil"
                                                 value="{{ old('persentase_bagi_hasil', isset($data) ? $data->persentase_bagi_hasil : '') }}"
                                                 step="0.01">
                                             <span class="input-group-text">%</span>
@@ -806,9 +806,9 @@
                                             Pendapatan/bulan</label>
                                         <div class="input-group">
                                             <span class="input-group-text">Rp</span>
-                                            <input type="number" class="form-control"
+                                            <input type="text" class="form-control"
                                                 name="pendapatan_setara_bulanan"
-                                                value="{{ old('pendapatan_setara_bulanan', isset($data) ? $data->pendapatan_setara_bulanan : '') }}"
+                                                value="{{ old('pendapatan_setara_bulanan', isset($data) ? number_format($data->pendapatan_setara_bulanan, 0, ',', '.') : '') }}"
                                                 step="0.01">
                                         </div>
                                     </div>
@@ -818,32 +818,32 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="biaya_administrasi" class="form-label">Biaya Administrasi</label>
-                                        <input type="number" class="form-control" name="biaya_administrasi"
-                                            value="{{ old('biaya_administrasi', isset($data) ? $data->biaya_administrasi : '') }}">
+                                        <input type="text" class="form-control" name="biaya_administrasi"
+                                            value="{{ old('biaya_administrasi', isset($data) ? number_format($data->biaya_administrasi, 0, ',', '.') : '') }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="biaya_notaris" class="form-label">Biaya Notaris</label>
-                                        <input type="number" class="form-control" name="biaya_notaris"
-                                            value="{{ old('biaya_notaris', isset($data) ? $data->biaya_notaris : '') }}">
+                                        <input type="text" class="form-control" name="biaya_notaris"
+                                            value="{{ old('biaya_notaris', isset($data) ? number_format($data->biaya_notaris, 0, ',', '.') : '') }}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="biaya_materai" class="form-label">Biaya Materai</label>
-                                        <input type="number" class="form-control" name="biaya_materai"
-                                            value="{{ old('biaya_materai', isset($data) ? $data->biaya_materai : '') }}">
+                                        <input type="text" class="form-control" name="biaya_materai"
+                                            value="{{ old('biaya_materai', isset($data) ? number_format($data->biaya_materai, 0, ',', '.') : '') }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="biaya_asuransi" class="form-label">Biaya Asuransi</label>
-                                        <input type="number" class="form-control" name="biaya_asuransi"
-                                            value="{{ old('biaya_asuransi', isset($data) ? $data->biaya_asuransi : '') }}">
+                                        <input type="text" class="form-control" name="biaya_asuransi"
+                                            value="{{ old('biaya_asuransi', isset($data) ? number_format($data->biaya_asuransi, 0, ',', '.') : '') }}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="biaya_lain" class="form-label">Biaya Lain</label>
-                                        <input type="number" class="form-control" name="biaya_lain"
-                                            value="{{ old('biaya_lain', isset($data) ? $data->biaya_lain : '') }}">
+                                        <input type="text" class="form-control" name="biaya_lain"
+                                            value="{{ old('biaya_lain', isset($data) ? number_format($data->biaya_lain, 0, ',', '.') : '') }}">
                                     </div>
                                     <div class="col-md-6 mt-3">
                                         <input type="hidden" class="form-control" name="total_biaya_admin"
@@ -870,7 +870,7 @@
     <!-- Bootstrap 5 JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script>
+    {{-- <script>
         function calculateTotal(inputs, targetInput, targetSpan) {
             let total = 0;
             inputs.forEach(input => {
@@ -910,6 +910,27 @@
             }));
         }
 
+        function formatRupiah(angka, prefix) {
+            const numberString = angka.replace(/[^,\d]/g, '').toString();
+            const split = numberString.split(',');
+            const sisa = split[0].length % 3;
+            let rupiah = split[0].substr(0, sisa);
+            const ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            console.log(numberString);
+
+
+            if (ribuan) {
+                const separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            return prefix === undefined ? rupiah : (rupiah ? prefix + rupiah : '');
+        }
+
+        function unformatRupiah(rupiah) {
+            return rupiah.replace(/\./g, '');
+        }
+
         $(document).ready(function() {
             // if ($('input[name=total_aset]').val()) {
             //     $('.total_aset').html(parseFloat($('input[name=total_aset]').val()).toLocaleString('id-ID', {
@@ -917,6 +938,31 @@
             //         currency: 'IDR'
             //     }));
             // }
+
+            const uangInputs = [
+                'jumlah_plafon', 'plafon_tertinggi_sebelumnya', 'persediaan_barang', 'aset_properti',
+                'nilai_motor', 'nilai_mobil', 'aset_lainnya', 'hutang_bank', 'hutang_dagang',
+                'modal_sendiri', 'harga_pasar_kendaraan', 'nilai_taksasi_kendaraan', 'harga_pasar_tanah',
+                'nilai_taksasi_tanah', 'omset_bulanan', 'biaya_bahan', 'biaya_tenaga_kerja',
+                'biaya_lainnya', 'gaji_pemohon', 'gaji_pasangan', 'pendapatan_lain', 'biaya_administrasi',
+                'biaya_notaris', 'biaya_materai', 'biaya_asuransi', 'biaya_lain'
+            ];
+
+            uangInputs.forEach(inputName => {
+                const input = $(`input[name=${inputName}]`);
+
+                // Format saat mengetik
+                input.on('input', function() {
+                    const value = $(this).val();
+                    $(this).val(formatRupiah(value));
+                });
+
+                // Unformat sebelum submit
+                $('form').on('submit', function() {
+                    const value = input.val();
+                    input.val(unformatRupiah(value));
+                });
+            });
 
             // Konfigurasi perhitungan total untuk setiap kelompok input
             const calculations = {
@@ -975,6 +1021,153 @@
             pendapatanInputs.forEach(input => {
                 $(`input[name=${input}]`).on('input', jumlah_pendapatan);
             });
+        });
+    </script> --}}
+    <script>
+        function formatRupiah(angka, prefix) {
+            const numberString = angka.replace(/[^,\d]/g, '').toString();
+            const split = numberString.split(',');
+            const sisa = split[0].length % 3;
+            let rupiah = split[0].substr(0, sisa);
+            const ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                const separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            return prefix === undefined ? rupiah : (rupiah ? prefix + rupiah : '');
+        }
+
+        function unformatRupiah(rupiah) {
+            return rupiah.replace(/\./g, '');
+        }
+
+        function calculateTotal(inputs, targetInput, targetSpan) {
+            let total = 0;
+            inputs.forEach(input => {
+                const value = unformatRupiah($(`input[name=${input}]`).val()) || 0;
+                total += parseFloat(value);
+            });
+
+            $(`input[name=${targetInput}]`).val(total);
+
+            $(`.${targetSpan}`).html(total.toLocaleString('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            }));
+        }
+
+        function jumlah_pendapatan() {
+            let total_pendapatan = 0;
+            let total_biaya = 0;
+            let pendapatan_usaha_bulanan = 0;
+
+            total_biaya += parseFloat(unformatRupiah($(`input[name=biaya_bahan]`).val())) || 0;
+            total_biaya += parseFloat(unformatRupiah($(`input[name=biaya_tenaga_kerja]`).val())) || 0;
+            total_biaya += parseFloat(unformatRupiah($(`input[name=biaya_lainnya]`).val())) || 0;
+
+            pendapatan_usaha_bulanan += parseFloat(unformatRupiah($(`input[name=omset_bulanan]`).val())) || 0;
+            pendapatan_usaha_bulanan -= total_biaya;
+
+            $(`input[name=pendapatan_usaha_bulanan]`).val(pendapatan_usaha_bulanan);
+            $(`input[name=total_biaya]`).val(total_biaya);
+
+            total_pendapatan += parseFloat(unformatRupiah($(`input[name=gaji_pemohon]`).val())) || 0;
+            total_pendapatan += parseFloat(unformatRupiah($(`input[name=gaji_pasangan]`).val())) || 0;
+            total_pendapatan += parseFloat(unformatRupiah($(`input[name=pendapatan_lain]`).val())) || 0;
+            total_pendapatan += pendapatan_usaha_bulanan;
+
+            $(`input[name=total_pendapatan]`).val(total_pendapatan);
+            $(`.total_pendapatan`).html(total_pendapatan.toLocaleString('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            }));
+        }
+
+        $(document).ready(function() {
+            const uangInputs = [
+                'jumlah_plafon', 'plafon_tertinggi_sebelumnya', 'persediaan_barang', 'aset_properti',
+                'nilai_motor', 'nilai_mobil', 'aset_lainnya', 'hutang_bank', 'hutang_dagang',
+                'modal_sendiri', 'harga_pasar_kendaraan', 'nilai_taksasi_kendaraan', 'harga_pasar_tanah',
+                'nilai_taksasi_tanah', 'omset_bulanan', 'biaya_bahan', 'biaya_tenaga_kerja',
+                'biaya_lainnya', 'gaji_pemohon', 'gaji_pasangan', 'pendapatan_lain', 'biaya_administrasi',
+                'biaya_notaris', 'biaya_materai', 'biaya_asuransi', 'biaya_lain', 'kebutuhan_pokok',
+                'biaya_pendidikan', 'pengeluaran_lainnya', 'pendapatan_setara_bulanan', 'harga_jual_bmt',
+                'nominal_disetujui',
+            ];
+
+            uangInputs.forEach(inputName => {
+                const input = $(`input[name=${inputName}]`);
+
+                // Format saat mengetik
+                input.on('input', function() {
+                    const value = $(this).val();
+                    $(this).val(formatRupiah(value));
+                });
+
+                // Unformat sebelum submit
+                $('form').on('submit', function() {
+                    uangInputs.forEach(inputName => {
+                        const input = $(`input[name=${inputName}]`);
+                        const value = input.val();
+                        input.val(unformatRupiah(value));
+                    });
+                });
+            });
+
+            // Konfigurasi perhitungan total untuk setiap kelompok input
+            const calculations = {
+                aset: {
+                    inputs: ['persediaan_barang', 'aset_properti', 'nilai_motor', 'nilai_mobil',
+                        'aset_lainnya'
+                    ],
+                    targetInput: 'total_aset',
+                    targetSpan: 'total_aset'
+                },
+                tanggungan: {
+                    inputs: ['hutang_bank', 'hutang_dagang', 'modal_sendiri'],
+                    targetInput: 'total_tanggungan',
+                    targetSpan: 'total_tanggungan'
+                },
+                pengeluaran: {
+                    inputs: ['kebutuhan_pokok', 'biaya_pendidikan', 'pengeluaran_lainnya'],
+                    targetInput: 'total_pengeluaran_rutin',
+                    targetSpan: 'total_pengeluaran_rutin'
+                },
+                biayaAdmin: {
+                    inputs: ['biaya_administrasi', 'biaya_notaris', 'biaya_materai', 'biaya_asuransi',
+                        'biaya_lain'
+                    ],
+                    targetInput: 'total_biaya_admin',
+                    targetSpan: 'total_biaya_admin'
+                }
+            };
+
+            // Setup event listeners untuk semua input
+            Object.values(calculations).forEach(calc => {
+                calc.inputs.forEach(input => {
+                    $(`input[name=${input}]`).on('input', () => {
+                        calculateTotal(calc.inputs, calc.targetInput, calc.targetSpan);
+                    });
+                });
+            });
+
+            // Hitung ulang total saat halaman dimuat
+            Object.values(calculations).forEach(calc => {
+                calculateTotal(calc.inputs, calc.targetInput, calc.targetSpan);
+            });
+
+            // Tambahkan event listener untuk fungsi jumlah_pendapatan
+            const pendapatanInputs = ['biaya_bahan', 'biaya_tenaga_kerja', 'biaya_lainnya', 'omset_bulanan',
+                'gaji_pemohon', 'gaji_pasangan', 'pendapatan_lain'
+            ];
+            pendapatanInputs.forEach(input => {
+                $(`input[name=${input}]`).on('input', jumlah_pendapatan);
+            });
+
+            // Hitung ulang pendapatan saat halaman dimuat
+            jumlah_pendapatan();
         });
     </script>
 </body>
