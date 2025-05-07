@@ -6,6 +6,7 @@ use App\Models\Pengajuan;
 use App\Models\Angsuran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDO;
 
 class DashboardController extends Controller
 {
@@ -17,6 +18,8 @@ class DashboardController extends Controller
             return $this->adminDashboard();
         } elseif ($user->role === 'nasabah') {
             return $this->nasabahDashboard();
+        } else {
+            return $this->marketingDashboard();
         }
 
         return view('dashboard.dashboard');
@@ -56,8 +59,8 @@ class DashboardController extends Controller
 
         $stats = [
             'total_pengajuan' => $nasabah->pengajuan()->count(),
-            'pengajuan_aktif' => $nasabah->pengajuan()->where('status_pembayaran', 'belum_lunas')->count(),
-            'pengajuan_lunas' => $nasabah->pengajuan()->where('status_pembayaran', 'lunas')->count(),
+            'pengajuan_aktif' => $nasabah->pengajuan()->where('status', 'accepted')->where('status_pembayaran', 'belum_lunas')->count(),
+            'pengajuan_lunas' => $nasabah->pengajuan()->where('status', 'accepted')->where('status_pembayaran', 'lunas')->count(),
             'angsuran_terlambat' => Angsuran::whereHas('pengajuan', function ($q) use ($nasabah) {
                 $q->where('nasabah_id', $nasabah->id);
             })->where('status', 'late')->count(),
@@ -79,5 +82,28 @@ class DashboardController extends Controller
             ->get();
 
         return view('dashboard.nasabah', compact('stats', 'recentPengajuan', 'upcomingAngsuran'));
+    }
+
+    protected function marketingDashboard()
+    {
+        $stats = [
+            'pengajuan_disurvei' => Pengajuan::whereHas('survei', function ($query) {
+                $query->where('marketing_id', auth()->user()->id);
+            })->count(),
+            'pengajuan_baru' => Pengajuan::whereDoesntHave('survei')->count(),
+            'pengajuan_diterima' => Pengajuan::whereHas('survei', function ($query) {
+                $query->where('marketing_id', auth()->user()->id)->where('status_aplikasi', 'disetujui');
+            })->count(),
+            'pengajuan_ditolak' => Pengajuan::whereHas('survei', function ($query) {
+                $query->where('marketing_id', auth()->user()->id)->where('status_aplikasi', 'ditolak');
+            })->count(),
+        ];
+
+        $monthlySubmissions = Pengajuan::selectRaw('MONTH(tanggal_pengajuan) as month, COUNT(*) as count')
+            ->whereYear('tanggal_pengajuan', now()->year)
+            ->groupByRaw('MONTH(tanggal_pengajuan)')
+            ->pluck('count', 'month');
+
+        return view('dashboard.marketing', compact('stats', 'monthlySubmissions'));
     }
 }

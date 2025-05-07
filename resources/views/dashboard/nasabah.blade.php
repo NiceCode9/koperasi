@@ -129,16 +129,16 @@
                                 <h6>Pengajuan #{{ $pengajuan->nomor_pengajuan }}</h6>
                                 <div class="progress" style="height: 25px;">
                                     @php
+                                        $totalAngsurans = $pengajuan->angsurans()->count();
+                                        $paidAngsurans = $pengajuan->angsurans()->where('status', 'paid')->count();
                                         $percentage =
-                                            ($pengajuan->angsurans()->where('status', 'paid')->count() /
-                                                $pengajuan->angsurans()->count()) *
-                                            100;
+                                            $totalAngsurans > 0 ? ($paidAngsurans / $totalAngsurans) * 100 : 0;
                                     @endphp
                                     <div class="progress-bar bg-success" role="progressbar"
                                         style="width: {{ $percentage }}%" aria-valuenow="{{ $percentage }}"
                                         aria-valuemin="0" aria-valuemax="100">
                                         {{ round($percentage) }}%
-                                        ({{ $pengajuan->angsurans()->where('status', 'paid')->count() }}/{{ $pengajuan->angsurans()->count() }})
+                                        ({{ $paidAngsurans }}/{{ $totalAngsurans }})
                                     </div>
                                 </div>
                             </div>
@@ -165,4 +165,23 @@
             font-weight: bold;
         }
     </style>
+@endpush
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            @if (auth()->user()->role === 'nasabah' && empty(auth()->user()->nasabah))
+                swal.fire({
+                    title: 'Peringatan',
+                    text: 'Silahkan lengkapi data profile anda terlebih dahulu',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{{ route('nasabah.profile') }}";
+                    }
+                });
+            @endif
+        });
+    </script>
 @endpush
