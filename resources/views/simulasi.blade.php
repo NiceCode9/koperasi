@@ -7,7 +7,7 @@
                 {{-- <form action="" method="POST"> --}}
                 <div class="mb-3">
                     <label for="jumlah" class="form-label">Jumlah Pinjaman</label>
-                    <input type="number" class="form-control" id="jumlah" name="jumlah" min="1000000" required>
+                    <input type="text" class="form-control" id="jumlah" name="jumlah" required>
                 </div>
                 <div class="mb-3">
                     <label for="bulan" class="form-label">Jangka Waktu (bulan)</label>
@@ -74,7 +74,32 @@
 
     @push('scripts')
         <script>
+            function formatRupiah(angka, prefix) {
+                const numberString = angka.replace(/[^,\d]/g, '').toString();
+                const split = numberString.split(',');
+                const sisa = split[0].length % 3;
+                let rupiah = split[0].substr(0, sisa);
+                const ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                if (ribuan) {
+                    const separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+
+                return prefix === undefined ? rupiah : (rupiah ? prefix + rupiah : '');
+            }
+
+            function unformatRupiah(rupiah) {
+                return rupiah.replace(/\./g, '');
+            }
+
             $(document).ready(function() {
+
+                $('input[name=jumlah]').on('input', function() {
+                    let val = $(this).val();
+                    $(this).val(formatRupiah(val));
+                });
+
                 $('button').on('click', function() {
                     if ($('#akad option:selected').val() == '' || $('#jumlah').val() == '' || $('#bulan')
                         .val() == '') {
@@ -83,7 +108,7 @@
                     }
                     let table = $('#table-angsuran tbody');
                     table.html('');
-                    let jumlah = $('#jumlah').val();
+                    let jumlah = unformatRupiah($('#jumlah').val());
                     let bulan = $('#bulan').val();
                     $('.btn-ajukan').show();
                     // let bunga = 1.5;

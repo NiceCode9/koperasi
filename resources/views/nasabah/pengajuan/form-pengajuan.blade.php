@@ -35,7 +35,7 @@
             <div class="col-md-10 col-lg-8">
                 <form
                     action="{{ $pengajuan ? route('nasabah.pengajuan.update', $pengajuan) : route('nasabah.pengajuan.store') }}"
-                    method="POST" enctype="multipart/form-data">
+                    method="POST" enctype="multipart/form-data" id="form-pengajuan">
                     @csrf
                     @if ($pengajuan)
                         @method('PUT')
@@ -394,6 +394,38 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function formatRupiah(angka, prefix) {
+            const numberString = angka.replace(/[^,\d]/g, '').toString();
+            const split = numberString.split(',');
+            const sisa = split[0].length % 3;
+            let rupiah = split[0].substr(0, sisa);
+            const ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                const separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            return prefix === undefined ? rupiah : (rupiah ? prefix + rupiah : '');
+        }
+
+        function unformatRupiah(rupiah) {
+            return rupiah.replace(/\./g, '');
+        }
+
+        $('input[name=nominal_pengajuan]').on('input', function() {
+            let val = $(this).val();
+            $(this).val(formatRupiah(val));
+        });
+
+        $('#form-pengjauan').on('submit', function() {
+            let input = $('input[name=nominal_pengajuan]');
+            let value = input.val();
+            input.val(unformatRupiah(value));
+        });
+    </script>
 </body>
 
 </html>
