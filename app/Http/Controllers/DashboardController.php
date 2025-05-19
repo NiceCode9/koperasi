@@ -46,7 +46,25 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        return view('dashboard.admin', compact('stats', 'recentPengajuan', 'recentAngsuran'));
+        $currentYear = request('year', now()->year);
+
+        $monthlySubmissions = Pengajuan::selectRaw('MONTH(created_at) as month, SUM(nominal_pengajuan) as total')
+            ->whereYear('created_at', $currentYear)
+            ->where('status', 'accepted')
+            ->groupBy('month')
+            ->pluck('total', 'month')
+            ->all();
+
+        // Fill in missing months with zero
+        $monthlyData = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $monthlyData[$i] = $monthlySubmissions[$i] ?? 0;
+        }
+
+        // Ganti bagian mendapatkan years dengan range tahun 2000-sekarang
+        $years = collect(range(2000, now()->year))->reverse();
+
+        return view('dashboard.admin', compact('stats', 'recentPengajuan', 'recentAngsuran', 'monthlyData', 'currentYear', 'years'));
     }
 
     protected function nasabahDashboard()

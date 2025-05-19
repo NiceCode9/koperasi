@@ -136,6 +136,28 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card">
+                    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Pengajuan Bulanan</h5>
+                        <div>
+                            <select id="yearFilter" class="form-select form-select-sm" onchange="this.form.submit()">
+                                @foreach ($years as $year)
+                                    <option value="{{ $year }}" {{ $year == $currentYear ? 'selected' : '' }}>
+                                        {{ $year }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="monthlyChart" height="100"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -214,6 +236,59 @@
                         }
                     }
                 }
+            });
+
+            // Monthly Chart
+            const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+            new Chart(monthlyCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus',
+                        'September', 'Oktober', 'November', 'Desember'
+                    ],
+                    datasets: [{
+                        label: 'Total Nominal Pengajuan (Rp)',
+                        data: @json(array_values($monthlyData)),
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        tension: 0.1,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Total Nominal Pengajuan Bulanan Tahun ' + {{ $currentYear }}
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Rp ' + new Intl.NumberFormat('id-ID').format(context.raw);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return 'Rp ' + new Intl.NumberFormat('id-ID').format(value);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Year Filter Handler
+            document.getElementById('yearFilter').addEventListener('change', function() {
+                window.location.href = '{{ route('dashboard') }}?year=' + this.value;
             });
         });
     </script>
