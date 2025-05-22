@@ -5,17 +5,16 @@
         <div class="container">
             <section class="profil">
                 <div class="profil-info">
-                    <p class="tentang-profil3">Koperasi Konsumen Syariah Sukses Usaha Sejahtera (KOPSUS SYARIAH)
-                        didirikan pada tahun 2004 di Kediri, Jawa Timur. Awalnya bernama "Koperasi Konsumen Syariah
-                        Sukses Usaha Sejahtera" dan berstatus Koperasi Konsumen. Kemudian, berdasarkan Undang-Undang
-                        Nomor 17 Tahun 2012 tentang Perkoperasian, KOPSUS SYARIAH ditetapkan menjadi "Koperasi Konsumen
-                        Syariah Sukses Usaha Sejahtera" dan statusnya menjadi Koperasi Konsumen Syariah. <br><br>
-                        KOPSUS SYARIAH resmi beroperasi pada tanggal 1 Januari 2024 setelah menunda kegiatan operasional
-                        selama 3 tahun akibat pandemi Covid-19. KOPSUS SYARIAH menawarkan layanan penyimpanan dana dan
-                        fasilitas pinjaman untuk segmen pembiayaan korporasi, menengah, dan kecil. Produk dan layanan
-                        KOPSUS SYARIAH disesuaikan dengan kebutuhan anggota dan calon anggota, serta berpedoman pada
-                        Prinsip Koperasi Syariah yang telah diatur dalam Fatwa Dewan Syariah Nasional dan Majelis Ulama
-                        Indonesia No: 141/DSN-MUI/VIII/2021 tentang Pedoman Pendirian dan Operasional Koperasi Syariah.
+                    <p class="tentang-profil3">Koperasi Simpan Pinjam Pembiayaan Syariah BMT NU Jombang Didirikan pada
+                        tanggal 31 Maret 2013 oleh Lembaga Perekonomian Nahdlatul Ulama (LPNU) Jombang. Tujuannya adalah
+                        untuk meningkatkan perekonomian dan kesejahteraan warga Nahdlatul Ulama (NU) Jombang, serta
+                        mendorong upaya membangun ekonomi masyarakat sekitar dengan berlandaskan syariat Islam serta
+                        dikelola secara profesional dengan mengedepankan prinsip kehati-hatian dan tata kelola keuangan
+                        yang berbasic sistem keuangan semi perbankan. <br><br>
+                        BMT NU Jombang telah berkembang pesat sejak didirikan. Pada tahun ini 2025, BMT NU Jombang telah
+                        memiliki 21 kantor cabang yang tersebar di berbagai wilayah di Jombang. BMT NU Jombang juga
+                        telah memiliki berbagai produk dan layanan keuangan syariah, seperti simpanan, pembiayaan, dan
+                        jasa lainnya.
                     </p>
                 </div>
                 <div class="profil-info">
@@ -36,19 +35,19 @@
                 <div class="profil-info">
                     <div class="tentang-profil">
                         <h4 class="fw-bold warna-vm">Visi</h4>
-                        <p class="tentang-profil3">Menjadi koperasi yang sehat dan sesuai dengan syariat Islam,
-                            berkembang dan terpercaya, yang mampu melayani Anggota mencapai kehidupan yang penuh
-                            keselamatan, kedamaian dan kesejahteraan.</p>
+                        <p class="tentang-profil3">Menjadi lembaga keuangan yang mandiri, sehat, kuat, yang kualitas
+                            ibadah anggotanya meningkat sedemikian rupa, sehingga mampu berperan menjadi wakil pribadi
+                            Allah memakmurkan kehidupan anggota pada khususnya dan ummat manusia pada umumnya.</p>
                         <h4 class="fw-bold mt-4 warna-vm">Misi</h4>
                         <ul class="tentang-profil3">
-                            <li>Melambangkan Koperasi sebagai gerakan pembebasan ekonomi ribawi, gerakan pemberdayaan
-                                Anggota, dan gerakan keadilan sehingga terwujud kualitas masyarakat di sekitar Koperasi
-                                yang penuh keselamatan, kedamaian dan kesejahteraan mencipatakan kesejahteraan bagi para
-                                Anggota yang berkesinambungan.</li>
-                            <li>Berdaya guna sebagai mitra strategis dan terpercaya bagi Anggota.</li>
-                            <li>Berkontribusi dalam perkembangan perkoperasian di Indonesia dan</li>
-                            <li>Mengelola Koperasi dan unit usaha secara professional dengan menerapkan prinsip “Good
-                                Corporate Governance”.</li>
+                            <li>Mengembangkan BMT yang maju berkembang, terpercaya, aman, nyaman.</li>
+                            <li>Transparan dan berkehati-hatian sehingga dapat mewujudkan Gerakan Pembebasan anggota dan
+                                masyarakat dari ikatan rentenir, jerat kemiskinan dan ekonomi ribawi.</li>
+                            <li>Gerakan Pemberdayaan meningkatkan kapasitas dalam kegiatan ekonomi riil dan
+                                kelembagaanya menuju tatanan perekonomian yang makmur dan maju.</li>
+                            <li>Gerakan Keadilan membangun struktur masyarakat madani yang adil berkemakmuran dan
+                                berkemajuan, serta makmur maju berkeadilan berlandaskan syariah dan ridla Allah SWT.
+                            </li>
                         </ul>
                     </div>
                 </div>
